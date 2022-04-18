@@ -24,7 +24,7 @@ const settings = document.querySelector("#settings-tab")
 const tabInfo = document.querySelectorAll(".tabs-panel");
 
 editProfile.addEventListener("click", e => {
-      let tab = tabLinks[4]
+      let tab = tabLinks[2]
       let info = tabInfo
 
       e.preventDefault();
@@ -42,7 +42,7 @@ editProfile.addEventListener("click", e => {
 
 const settingsTab = document.querySelector("#idtopbar");
 settingsTab.addEventListener("click", e => {
-  let tab = tabLinks[4]
+  let tab = tabLinks[2]
   let info = tabInfo
 
   e.preventDefault();
@@ -79,11 +79,79 @@ uploadTab.addEventListener("click", e => {
   panel[0].classList.add("active");
 });
 
-uploadTab.onclick = (()=>{
-  uploadButton.click();
+uploadButton.onclick = (()=>{
+  uploadTab.click();
   return false;
 });
 
+
+//code to upload a song: when uncommented, tabs do not refresh how they're supposed to
+
+/*
+function returnFileSize(number) {
+  if(number < 1024) {
+    return number + 'bytes';
+  } else if(number >= 1024 && number < 1048576) {
+    return (number/1024).toFixed(1) + 'KB';
+  } else if(number >= 1048576) {
+    return (number/1048576).toFixed(1) + 'MB';
+  }
+}
+
+function getFilePath() {
+  //var path = (window.URL || window.webkitURL).createObjectURL(songFile);
+  return " ";
+}
+
+function getFileLength() {
+  var f_duration = 0;
+  f_duration = Math.round(songFile.duration);
+  return f_duration;
+}
+
+  dc = document.cookie;
+  const start_idx = dc.indexOf('UserID')
+  const end_idx = dc.substr(start_idx).indexOf(";");
+  let user_id;
+
+  if (end_idx === -1) {
+      user_id = parseInt(dc.substr(start_idx+7));
+  }
+
+  else {
+      user_id = parseInt(dc.substr(start_idx+7, end_idx));
+  }
+
+const uploadButton = document.querySelector("#uploadbtn");
+
+uploadButton.addEventListener("click", e => {
+  var songTitle = document.getElementById('songTitle');
+  var songFile = document.getElementById('songUpload');
+
+  var userID = user_id;
+  var fileSize = returnFileSize(songFile.size);
+  var fileLength = getFileLength();
+  var filePath = getFilePath();
+
+  var sql = 'INSERT INTO SONG (title, user_id, album_id, file_path, length_seconds, size) VALUES ("${title}", "${userID}", NULL, "${filePath}", "${fileLength}", "${fileSize}", NOW())';
+  db.query(sql, function(err, result) {
+      if(err)
+        throw err
+      console.log('song inserted');
+      result.redirect('/');
+  });
+
+  uploadTab.click();
+  return false;
+
+});
+
+*/
+
+//grab information to display name & username & email
+
+
+//logout information 
 function deleteCookie(name) {
     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
@@ -92,3 +160,19 @@ const handle_logout = (event) => {
     deleteCookie("UserID");
     window.location.href = "/";
 }
+
+
+const updateButton = document.getElementById("update-btn");
+
+updateButton.addEventListener("click", e => {
+  var nameInput = document.getElementById("inputName");
+  var usernameInput = document.getElementById("usern");
+  var emailInput = document.getElementById("emailIn");
+
+  document.getElementById("user-name").value = nameInput;
+  document.getElementById("un").value = usernameInput;
+  document.getElementById("").value = emailInput;
+
+  window.location.reload(true);
+});
+

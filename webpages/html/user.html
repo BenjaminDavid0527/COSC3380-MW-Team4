@@ -15,6 +15,7 @@
       <div class="topnav" id="topNavBar">
         <a href="user" class="active">Home</a>
         <a id = "uploadtopbar" href="#">Upload</a>
+        <a href="create_playlist">Playlists</a>
         <a id="idtopbar" href="#">Settings</a>
       </div>
         <div class="container">
@@ -24,17 +25,17 @@
                 </div>
                 <div class="profile-nav-info">
                   <!--populate first last from user -->
-                    <h3 class="user-name">first last</h3>
+                    <h3 id="user-name" value="first last"> </h3>
                 </div>
             </div>
             <div class="main-bd">
                 <div class="left-side">
                     <div class="profile-side">
-                        <p class="mobile-no"> <i class="fa fa-user"></i>username </p>
+                        <p class="mobile-no" id="un" value="username"><i class="fa fa-user"></i> username</p>
                         <p class="user-mail"><i class="fa fa-envelope"></i>hello@coogmusic.com</p>
                         <div class="user-bio">
-                            <h3>Bio</h3>
-                            <p class="bio">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni, sapiente. Repellat, enim minus iste animi quas itaque officiis ipsam! Aperiam totam, libero, sint atque aspernatur nihil illo laborum unde harum reprehenderit officia, quia amet possimus tenetur at quam blanditiis consequuntur quaerat voluptates in rem vel beatae dolorum voluptatem? Nesciunt, provident.</p>
+                            <!-- <h3>Bio</h3>
+                            <p class="bio"></p> -->
                         </div>
                         <div class="profile-btn">
                             <button class="chatbtn">
@@ -56,12 +57,9 @@
                               <li id="albums-tab">
                                 <a href="">Albums</a>
                               </li>
-                              <li id="playlists-tab">
+                              <!-- <li id="playlists-tab">
                                 <a href="">Playlists</a>
-                              </li>
-                              <li id="reports-tab">
-                                <a href="">Reports</a>
-                              </li>
+                              </li> -->
                               <li id="settings-tab">
                                 <a href="">Settings</a>
                               </li>
@@ -74,7 +72,7 @@
                                   <form>
                                       <input type="text" id="songTitle" class="form_input" placeholder="Song Title" minlength="3" maxlength="20" pattern="!@#$%&*[^()/><\][\\\x22,;|]+{3,20}" oninvalid="alert('Please input a song title! It must be between 3-20 characters and not contain special characters.');" required>
                                       <input type="file" id="songUpload" accept="audio/*" required>
-                                      <button id="uploadbtn" type="submit" > Upload </button>
+                                      <button id="songuploadbtn" type="submit" > Upload </button>
                                   </form>
                                   <!--<script src="webpages/src/uploadsong.js"></script>-->
                                 </div>
@@ -87,32 +85,61 @@
                               </div>
                               <div class="tabs-panel" data-index="1">
                                 <!-- content here -->
+                                <label>Upload New Album: </label> 
+                                  <form>
+                                      <input type="text" id="albumTitle" class="form_input" placeholder="Album Title" minlength="3" maxlength="20" pattern="!@#$%&*[^()/><\][\\\x22,;|]+{3,20}" oninvalid="alert('Please input an album title! It must be between 3-20 characters and not contain special characters.');" required>
+                                      <input type="file" id="albumUpload" accept="audio/*" multiple required>
+                                      <button id="uploadbtn" type="submit" > Upload </button>
+                                  </form>
+                                  <!--
                                 <body>
                                 <li id="album_list">
 
                                 </li>
+                              -->
                                 <!--<script src="/webpages/src/albums.js"> </script>-->
                                 </body>
                               </div>
+                              <!-- playlist tab below -->
+                              <!--
                               <div class="tabs-panel" data-index="2">
-                                <!-- content here -->
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam obcaecati placeat nesciunt quod inventore sint? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos labore veritatis consectetur ut enim magni voluptatem sunt voluptas a, ad qui animi, ea cum nisi itaque ullam asperiores aliquam, ipsa non provident ex fuga rerum! Provident veritatis earum nostrum voluptatem facilis quo odio adipisci quaerat! Ullam minus fugiat voluptatem, cum corporis facere reiciendis ducimus placeat, eaque enim at, accusamus magnam assumenda? Sapiente recusandae animi, dignissimos soluta modi reiciendis ab officia.
+                                <!-- content here 
+                                <div id="playlistcreation">
+                                  <!-- <div class="wrapper">
+                                      <div class="title-text">
+                                          <div class="title songs">Create Playlist</div>
+                                      </div>
+                                  </div>
+                                  <form>
+                                      <label for="playlistname">New playlist name:</label><br>
+                                  </form>
+                                  <ol id="createButton">
+                          
+                                  </ol>
+                                  <ol id="song_list">
+                          
+                                  </ol>
+                                  <ol id="playlist_list">
+                          
+                                  </ol>
+                                  <ol id="playlist_songs_list">
+                          
+                                  </ol>
+                                  <script src="webpages/src/create_playlist.js"> </script>
+                                </div>
                               </div>
-                              <div class="tabs-panel" data-index="3">
-                                <!-- content here -->
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil atque ratione, eligendi nemo pariatur nam? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex sit odio consequatur adipisci corporis, dolor minus natus! Maxime ea soluta ipsa distinctio provident harum, expedita laudantium, aliquid nisi officia tempore! Corporis, distinctio eius? Quibusdam, modi, molestias placeat dignissimos architecto ipsam cumque voluptas nisi ullam maiores ipsum neque, soluta aperiam. Voluptatum doloremque quae deleniti cumque, dicta eum repellendus illo ad animi exercitationem, nam, delectus optio. Consectetur culpa laudantium aliquam saepe quod.
-                              </div>
-                              <div class="tabs-panel" data-index="4">
+                            -->
+                              <div class="tabs-panel" data-index="2">
                                <div class="profile tabShow">
                                  <h1>Personal Info</h1>
                                  <h2>Full Name</h2>
-                                 <input type="text" class="input" placeholder="Jane Doe">
+                                 <input id="inputname" type="text" class="input" placeholder="Jane Doe">
                                  <h2>Username</h2>
-                                 <input type="text" class="input" placeholder="username">
+                                 <input id="usern" type="text" class="input" placeholder="username">
                                  <h2>Password</h2>
                                  <input type="password" class="input" minlength="8" maxlength="20">
                                  <h2>Email</h2>
-                                 <input type="email" class="input" placeholder="example@example.com">
+                                 <input id = "emailIn" type="email" class="input" placeholder="example@example.com">
                                  <h2>Bio</h2>
                                  <input type="text" class="input" placeholder="Tell us about yourself." maxlength="300">
                                 </div>
