@@ -1,5 +1,6 @@
 :root {
   --color: #fe4046;
+  font-family: "poppins", sans-serif;
 }
 @import url('https://fonts.googleapis.com/css?family=Poppin&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Bree+Serif&display=swap');
