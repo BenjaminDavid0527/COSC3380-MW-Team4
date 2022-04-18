@@ -110,6 +110,32 @@ async function handle_posts_requests(request, response) {
             });
         }
     }
+    else if (request.url.substr(0,22) === '/requests/upload_songs') {
+        if (request.url === '/requests/upload_songs') {
+            const buffers = [];
+            for await (const chunk of request) {
+                buffers.push(chunk);
+            }
+            const upload_song_info = JSON.parse(buffers.toString());
+            const upload_songs_query = `INSERT INTO SONG (title, user_id, file_path, length_seconds, size) VALUES ("${upload_song_info.Title}", ${upload_song_info.UserID}, "NULL", "260", "200")`
+
+            connection.query(upload_songs_query, (error, upload_songs_results) => {
+                if (error) {
+                    console.log(error);
+                    response.writeHead(500);
+                    response.end();
+                    throw error;
+                }
+                
+                const createResponse = {Changed: upload_songs_results.affectedRows};
+
+                response.writeHead(200);
+                response.write(JSON.stringify(createResponse));
+                response.end();          
+                }
+            );
+        }
+    }
     else if (request.url.substr(0,25) === '/requests/create_playlist') {
         if (request.url === '/requests/create_playlist') {
             const buffers = [];
@@ -225,6 +251,32 @@ else if (request.url.substr(0,30) === '/requests/delete_song_playlist') {
         const insert_song_playlist_query = `DELETE FROM SONG_PLAYLIST WHERE ( playlist_id = ${insert_song_playlist_info.Id} AND song_id = ${insert_song_playlist_info.SongID} )`
 
         connection.query(insert_song_playlist_query, (error, create_playlist_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            
+            const createResponse = {Changed: create_playlist_results.affectedRows};
+
+            response.writeHead(200);
+            response.write(JSON.stringify(createResponse));
+            response.end();          
+            }
+        );
+    }
+}
+else if (request.url.substr(0,22) === '/requests/delete_songs') {
+    if (request.url === '/requests/delete_songs') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const delete_song_info = JSON.parse(buffers.toString());
+        const delete_song_query = `DELETE FROM SONG WHERE (title = "${delete_song_info.Title}")`
+
+        connection.query(delete_song_query, (error, create_playlist_results) => {
             if (error) {
                 console.log(error);
                 response.writeHead(500);
@@ -469,7 +521,7 @@ async function server_handler(request, response) {
         handle_posts_requests(request, response);
         return;
     }
-    else if (request.url === '/user') {
+    else if (request.url === '/user' || request.url === '/user?' ) {
         file_path = pages_path + '/html/user.html';
         content_type = 'text/html';
     }

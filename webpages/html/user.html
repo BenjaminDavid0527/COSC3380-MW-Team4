@@ -15,7 +15,7 @@
       <div class="topnav" id="topNavBar">
         <a href="user" class="active">Home</a>
         <a id = "uploadtopbar" href="#">Upload</a>
-        <a href="create_playlist">Playlists</a>
+        <a href="create_playlist"> Playlists</a>
         <a id="idtopbar" href="#">Settings</a>
       </div>
         <div class="container">
@@ -59,6 +59,7 @@
                               </li>
                               <!-- <li id="playlists-tab">
                                 <a href="">Playlists</a>
+
                               </li> -->
                               <li id="settings-tab">
                                 <a href="">Settings</a>
@@ -71,8 +72,11 @@
                                   <label>Upload New Song: </label> 
                                   <form>
                                       <input type="text" id="songTitle" class="form_input" placeholder="Song Title" minlength="3" maxlength="20" pattern="!@#$%&*[^()/><\][\\\x22,;|]+{3,20}" oninvalid="alert('Please input a song title! It must be between 3-20 characters and not contain special characters.');" required>
-                                      <input type="file" id="songUpload" accept="audio/*" required>
-                                      <button id="songuploadbtn" type="submit" > Upload </button>
+
+                                      <!--<input type="file" id="songUpload" accept="audio/*" required>-->
+                                      <button id="uploadbtn" type="submit" > Upload </button>
+                                      <!--<button id="deletebtn" type="submit" > Delete </button>-->
+
                                   </form>
                                   <!--<script src="webpages/src/uploadsong.js"></script>-->
                                 </div>
@@ -100,6 +104,7 @@
                                 <!--<script src="/webpages/src/albums.js"> </script>-->
                                 </body>
                               </div>
+
                               <!-- playlist tab below -->
                               <!--
                               <div class="tabs-panel" data-index="2">
@@ -129,6 +134,7 @@
                                 </div>
                               </div>
                             -->
+
                               <div class="tabs-panel" data-index="2">
                                <div class="profile tabShow">
                                  <h1>Personal Info</h1>
