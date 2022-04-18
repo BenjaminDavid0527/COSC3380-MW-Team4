@@ -24,7 +24,7 @@ const settings = document.querySelector("#settings-tab")
 const tabInfo = document.querySelectorAll(".tabs-panel");
 
 editProfile.addEventListener("click", e => {
-      let tab = tabLinks[4]
+      let tab = tabLinks[2]
       let info = tabInfo
 
       e.preventDefault();
@@ -42,7 +42,7 @@ editProfile.addEventListener("click", e => {
 
 const settingsTab = document.querySelector("#idtopbar");
 settingsTab.addEventListener("click", e => {
-  let tab = tabLinks[4]
+  let tab = tabLinks[2]
   let info = tabInfo
 
   e.preventDefault();

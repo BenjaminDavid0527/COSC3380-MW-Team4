@@ -15,6 +15,7 @@
       <div class="topnav" id="topNavBar">
         <a href="user" class="active">Home</a>
         <a id = "uploadtopbar" href="#">Upload</a>
+        <a href="create_playlist"> Playlists</a>
         <a id="idtopbar" href="#">Settings</a>
       </div>
         <div class="container">
@@ -56,12 +57,12 @@
                               <li id="albums-tab">
                                 <a href="">Albums</a>
                               </li>
-                              <li id="playlists-tab">
+                              <!-- <li id="playlists-tab">
                                 <a href="">Playlists</a>
                               </li>
                               <li id="reports-tab">
                                 <a href="">Reports</a>
-                              </li>
+                              </li> -->
                               <li id="settings-tab">
                                 <a href="">Settings</a>
                               </li>
@@ -73,8 +74,9 @@
                                   <label>Upload New Song: </label> 
                                   <form>
                                       <input type="text" id="songTitle" class="form_input" placeholder="Song Title" minlength="3" maxlength="20" pattern="!@#$%&*[^()/><\][\\\x22,;|]+{3,20}" oninvalid="alert('Please input a song title! It must be between 3-20 characters and not contain special characters.');" required>
-                                      <input type="file" id="songUpload" accept="audio/*" required>
+                                      <!--<input type="file" id="songUpload" accept="audio/*" required>-->
                                       <button id="uploadbtn" type="submit" > Upload </button>
+                                      <!--<button id="deletebtn" type="submit" > Delete </button>-->
                                   </form>
                                   <!--<script src="webpages/src/uploadsong.js"></script>-->
                                 </div>
@@ -94,15 +96,17 @@
                                 <!--<script src="/webpages/src/albums.js"> </script>-->
                                 </body>
                               </div>
+                              <!---
                               <div class="tabs-panel" data-index="2">
-                                <!-- content here -->
+                                <!-- content here
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam obcaecati placeat nesciunt quod inventore sint? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos labore veritatis consectetur ut enim magni voluptatem sunt voluptas a, ad qui animi, ea cum nisi itaque ullam asperiores aliquam, ipsa non provident ex fuga rerum! Provident veritatis earum nostrum voluptatem facilis quo odio adipisci quaerat! Ullam minus fugiat voluptatem, cum corporis facere reiciendis ducimus placeat, eaque enim at, accusamus magnam assumenda? Sapiente recusandae animi, dignissimos soluta modi reiciendis ab officia.
                               </div>
                               <div class="tabs-panel" data-index="3">
-                                <!-- content here -->
+                                <!-- content here 
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil atque ratione, eligendi nemo pariatur nam? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex sit odio consequatur adipisci corporis, dolor minus natus! Maxime ea soluta ipsa distinctio provident harum, expedita laudantium, aliquid nisi officia tempore! Corporis, distinctio eius? Quibusdam, modi, molestias placeat dignissimos architecto ipsam cumque voluptas nisi ullam maiores ipsum neque, soluta aperiam. Voluptatum doloremque quae deleniti cumque, dicta eum repellendus illo ad animi exercitationem, nam, delectus optio. Consectetur culpa laudantium aliquam saepe quod.
-                              </div>
-                              <div class="tabs-panel" data-index="4">
+                              </div
+                              -->
+                              <div class="tabs-panel" data-index="2">
                                <div class="profile tabShow">
                                  <h1>Personal Info</h1>
                                  <h2>Full Name</h2>
