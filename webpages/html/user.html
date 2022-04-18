@@ -3,91 +3,121 @@
     <head>
         <meta charset="utf-8">
         <title> User Profile Page </title>
-        <link rel="stylesheet" href="https://github.com/alisonix/COSC3380-MW-Team4/blob/50ae2561c86a598867d9ad7a93de380c77a57b5f/webpages/src/userstyles.css">
+        <link rel="stylesheet" href="webpages/src/userstyles.css">
         <script src="https://kit.fontawesome.com/50eca13404.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <meta name="viewport" content="width=device.width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     </head>
 
     <body>
+      <div class="topnav" id="topNavBar">
+        <a href="user" class="active">Home</a>
+        <a id = "uploadtopbar" href="#">Upload</a>
+        <a id="idtopbar" href="#">Settings</a>
+      </div>
         <div class="container">
             <div class="profile-header">
                 <div class="profile-img">
-                    <img src="/Users/laneytran/Desktop/Spring 22/COSC3380/project/src/stockphoto.jpeg" width="200" alt="">
+                    <img src="webpages/data/stockphoto.jpeg" width="200" alt="">
                 </div>
                 <div class="profile-nav-info">
-                    <h3 class="user-name"> first last </h3>
-                    <div class="address">
-                        <p class="univeristy"></p>
-                        <span class="state"></span>
-                    </div>
+                  <!--populate first last from user -->
+                    <h3 class="user-name">first last</h3>
                 </div>
-                <button onclick="return handle_logout(event)">Log out</button>
             </div>
             <div class="main-bd">
                 <div class="left-side">
                     <div class="profile-side">
-                        <p class="mobile-no"> <i class="fa fa-user"></i> username </p>
-                        <p class="user-mail"><i class="fa fa-envelope"></i> hello@coogmusic.com</p>
+                        <p class="mobile-no"> <i class="fa fa-user"></i>username </p>
+                        <p class="user-mail"><i class="fa fa-envelope"></i>hello@coogmusic.com</p>
                         <div class="user-bio">
                             <h3>Bio</h3>
-                            <p class="bio">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dicta ipsum aliquam, ab obcaecati quam!</p>
+                            <p class="bio">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni, sapiente. Repellat, enim minus iste animi quas itaque officiis ipsam! Aperiam totam, libero, sint atque aspernatur nihil illo laborum unde harum reprehenderit officia, quia amet possimus tenetur at quam blanditiis consequuntur quaerat voluptates in rem vel beatae dolorum voluptatem? Nesciunt, provident.</p>
                         </div>
                         <div class="profile-btn">
                             <button class="chatbtn">
-                                <i class="fa fa-comment"></i> Chat
+                                <i class="fa fa-pencil"></i> Edit Profile
                             </button>
                             <button class="createbtn">
-                                <i class="fa fa-plus"></i> Create
+                                <i class="fa fa-plus"></i> Upload
                             </button>
-                        </div>
-                        <div class="user-rating">
-                            <h3 class="rating">4.5</h3>
-                            <div class="rate">
-                                <div class="stars">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <span class="no-user"><span>123</span>&nbsp;reviews</span>
-                            </div>
                         </div>
                     </div>
                 </div>
-                 <div class="right-side">
+                <div class="right-side">
                     <div class="nav">
                         <div class="tabs-container">
                             <ul class="tabs">
-                              <li class="active">
+                              <li class="active" id="songs-tab">
                                 <a href="">Songs</a>
                               </li>
-                              <li>
+                              <li id="albums-tab">
+                                <a href="">Albums</a>
+                              </li>
+                              <li id="playlists-tab">
                                 <a href="">Playlists</a>
                               </li>
-                              <li>
-                                <a href="">Rated</a>
+                              <li id="reports-tab">
+                                <a href="">Reports</a>
                               </li>
-                              <li>
+                              <li id="settings-tab">
                                 <a href="">Settings</a>
                               </li>
                             </ul>
                             <div class="tabs-content">
                               <div class="tabs-panel active" data-index="0">
                                 <!-- content here -->
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam placeat dolor accusamus quibusdam dolores! At? Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint nobis ad illum quo aperiam facere ea doloribus fuga reprehenderit quisquam, ullam voluptatibus. Nemo voluptate assumenda unde beatae nostrum voluptatibus sint velit odio molestias. Quibusdam, maxime enim provident consequuntur sequi placeat consequatur voluptatem, explicabo reiciendis veniam exercitationem eos distinctio, voluptatibus esse possimus ad cum. Magni minus voluptate ex, inventore nemo atque ea asperiores quam repellendus sunt? Veritatis laudantium quam maxime optio!
+                                <div class="uploadsong">
+                                  <label>Upload New Song: </label> 
+                                  <form>
+                                      <input type="text" id="songTitle" class="form_input" placeholder="Song Title" minlength="3" maxlength="20" pattern="!@#$%&*[^()/><\][\\\x22,;|]+{3,20}" oninvalid="alert('Please input a song title! It must be between 3-20 characters and not contain special characters.');" required>
+                                      <input type="file" id="songUpload" accept="audio/*" required>
+                                      <button id="uploadbtn" type="submit" > Upload </button>
+                                  </form>
+                                  <!--<script src="webpages/src/uploadsong.js"></script>-->
+                                </div>
+                                <body>
+                                  <ol id="song_list">
+                          
+                                  </ol>
+                                  <script src="/webpages/src/songs.js"> </script>
+                              </body>
                               </div>
                               <div class="tabs-panel" data-index="1">
                                 <!-- content here -->
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam obcaecati placeat nesciunt quod inventore sint? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos labore veritatis consectetur ut enim magni voluptatem sunt voluptas a, ad qui animi, ea cum nisi itaque ullam asperiores aliquam, ipsa non provident ex fuga rerum! Provident veritatis earum nostrum voluptatem facilis quo odio adipisci quaerat! Ullam minus fugiat voluptatem, cum corporis facere reiciendis ducimus placeat, eaque enim at, accusamus magnam assumenda? Sapiente recusandae animi, dignissimos soluta modi reiciendis ab officia.
+                                <body>
+                                <li id="album_list">
+
+                                </li>
+                                <!--<script src="/webpages/src/albums.js"> </script>-->
+                                </body>
                               </div>
                               <div class="tabs-panel" data-index="2">
                                 <!-- content here -->
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil atque ratione, eligendi nemo pariatur nam? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex sit odio consequatur adipisci corporis, dolor minus natus! Maxime ea soluta ipsa distinctio provident harum, expedita laudantium, aliquid nisi officia tempore! Corporis, distinctio eius? Quibusdam, modi, molestias placeat dignissimos architecto ipsam cumque voluptas nisi ullam maiores ipsum neque, soluta aperiam. Voluptatum doloremque quae deleniti cumque, dicta eum repellendus illo ad animi exercitationem, nam, delectus optio. Consectetur culpa laudantium aliquam saepe quod.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam obcaecati placeat nesciunt quod inventore sint? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos labore veritatis consectetur ut enim magni voluptatem sunt voluptas a, ad qui animi, ea cum nisi itaque ullam asperiores aliquam, ipsa non provident ex fuga rerum! Provident veritatis earum nostrum voluptatem facilis quo odio adipisci quaerat! Ullam minus fugiat voluptatem, cum corporis facere reiciendis ducimus placeat, eaque enim at, accusamus magnam assumenda? Sapiente recusandae animi, dignissimos soluta modi reiciendis ab officia.
                               </div>
                               <div class="tabs-panel" data-index="3">
                                 <!-- content here -->
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam obcaecati placeat nesciunt quod inventore sint? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos labore veritatis consectetur ut enim magni voluptatem sunt voluptas a, ad qui animi, ea cum nisi itaque ullam asperiores aliquam, ipsa non provident ex fuga rerum! Provident veritatis earum nostrum voluptatem facilis quo odio adipisci quaerat! Ullam minus fugiat voluptatem, cum corporis facere reiciendis ducimus placeat, eaque enim at, accusamus magnam assumenda? Sapiente recusandae animi, dignissimos soluta modi reiciendis ab officia.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil atque ratione, eligendi nemo pariatur nam? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex sit odio consequatur adipisci corporis, dolor minus natus! Maxime ea soluta ipsa distinctio provident harum, expedita laudantium, aliquid nisi officia tempore! Corporis, distinctio eius? Quibusdam, modi, molestias placeat dignissimos architecto ipsam cumque voluptas nisi ullam maiores ipsum neque, soluta aperiam. Voluptatum doloremque quae deleniti cumque, dicta eum repellendus illo ad animi exercitationem, nam, delectus optio. Consectetur culpa laudantium aliquam saepe quod.
+                              </div>
+                              <div class="tabs-panel" data-index="4">
+                               <div class="profile tabShow">
+                                 <h1>Personal Info</h1>
+                                 <h2>Full Name</h2>
+                                 <input type="text" class="input" placeholder="Jane Doe">
+                                 <h2>Username</h2>
+                                 <input type="text" class="input" placeholder="username">
+                                 <h2>Password</h2>
+                                 <input type="password" class="input" minlength="8" maxlength="20">
+                                 <h2>Email</h2>
+                                 <input type="email" class="input" placeholder="example@example.com">
+                                 <h2>Bio</h2>
+                                 <input type="text" class="input" placeholder="Tell us about yourself." maxlength="300">
+                                </div>
+                                 <button class="btn" id="update-btn">Update</button>
+                                 <button class="btn" id="logoutbtn" onclick="return handle_logout(event)">Log Out</button>
                               </div>
                             </div>
                         </div>
@@ -95,6 +125,38 @@
                 </div>
             </div>
         </div>
-        <script src="/webpages/src/user.js"></script>
+        
+        
+        <div style="text-align: center;">
+        
+        <div id="cs_audioplayer">
+        
+             <span style="position: relative;left: 0;float: left;font-size: 0.87em;"><span id="cs_audio_current_time">0:0</span></span>
+        
+             <span id="cs_play_pause_btn" style="position: relative;">
+                 <i class="far fa-play-circle" id="cs_audio_play"></i>
+                 <i class="far fa-pause-circle" id="cs_audio_pause"></i>
+             </span>
+        
+             <span id="cs_audio_sound" style="position: relative;right: 5px;float: right;margin-left: 15px;top: -2px;">
+                 <i style="vertical-align: middle;font-size: 1.14em;" class="fas fa-volume-down"></i>
+                 <div class="cs_volBar" style="height: 6px; width: 65px;background-color: #ccc;display: inline-block;cursor: pointer;">
+                   <div class="cs_volume" style="height: 6px;width: 28px;background-color: red;position: absolute;"></div>
+                 </div>
+        
+             </span>
+             <span id="cs_audio_duration" style="position: relative;right: 0;float: right;padding-left: 10px;font-size: 0.87em;"></span>
+        
+             <div class="cs_audio_bar">
+                 <div class="cs_audio_bar_now"></div>
+                 <div class="cs_audio_bar_loaded"></div>
+             </div>
+        
+        </div>
+        </div>
+        
+        
+        <script src="webpages/src/cspd-player.js"></script>
+        <script src="webpages/src/user.js"></script>
     </body>
     </html>

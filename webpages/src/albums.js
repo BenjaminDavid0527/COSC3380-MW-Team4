@@ -1,7 +1,7 @@
 const body = document.querySelector('body');
 
-async function get_songs(data) {
-    const response = await fetch('/requests/songs', {
+async function get_albums(data) {
+    const response = await fetch('/requests/albums', {
         method: 'POST',
         headers: {
             'Content-Type': 'application.json'
@@ -12,16 +12,16 @@ async function get_songs(data) {
 }
 
 // data = {UserID, SongID, Rating, WasRated} (see where this is called)
-async function rate_song(data) {
-    let response = await fetch('/requests/rating', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application.json'
-        },
-        body: JSON.stringify(data)
-    });
-    return response.json();
-}
+// async function rate_song(data) {
+//     let response = await fetch('/requests/rating', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application.json'
+//         },
+//         body: JSON.stringify(data)
+//     });
+//     return response.json();
+// }
 
 // Need code to handle if no cookie stored for user
 dc = document.cookie;
@@ -35,36 +35,36 @@ else {
     user_id = parseInt(dc.substr(start_idx+7, end_idx));
 }
 
-function get_rating_options() {
-    const select = document.createElement('select');
-    for (let counter = 1; counter <= 5; counter++) {
-        const option = document.createElement('option');
-        option.text = counter.toString();    
-        option.value = counter;
-        select.add(option);
-    }
-    return select;
-}
+// function get_rating_options() {
+//     const select = document.createElement('select');
+//     for (let counter = 1; counter <= 5; counter++) {
+//         const option = document.createElement('option');
+//         option.text = counter.toString();    
+//         option.value = counter;
+//         select.add(option);
+//     }
+//     return select;
+// }
 
-function get_rating_button() {
-    const button = document.createElement('button');
-    button.textContent = 'Submit';
-    return button;
-}
+// function get_rating_button() {
+//     const button = document.createElement('button');
+//     button.textContent = 'Submit';
+//     return button;
+// }
 
 // results = {Songs: [], Ratings: []}
-get_songs({UserID: user_id}).then(results => {
-    const song_list = document.getElementById('song_list');
+get_albums({UserID: user_id}).then(results => {
+    const album_list = document.getElementById('album_list');
     // song_info: {id, title, rating}
     for (const song_info of results.Songs) {
         const li = document.createElement('li');
-        const unique_id = song_info.id.toString();
+        const unique_id = album.id.toString();
         li.setAttribute('id', unique_id);
 
-        const select = get_rating_options();
-        const button = get_rating_button();
+        //const select = get_rating_options();
+        //const button = get_rating_button();
 
-        let wasRated = false;
+        //let wasRated = false;
         // rating info: {song_id,  rating}
         for (const rating_info of results.Ratings) {
             if (rating_info.song_id === song_info.id) {
@@ -72,6 +72,7 @@ get_songs({UserID: user_id}).then(results => {
                 wasRated = true;
             }
         }
+
         const body = `Title: ${song_info.title} Rating: ${song_info.rating}\t`
         li.innerHTML = body;
         li.appendChild(select);
