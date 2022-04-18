@@ -110,6 +110,164 @@ async function handle_posts_requests(request, response) {
             });
         }
     }
+    else if (request.url.substr(0,25) === '/requests/create_playlist') {
+        if (request.url === '/requests/create_playlist') {
+            const buffers = [];
+            for await (const chunk of request) {
+                buffers.push(chunk);
+            }
+            const create_playlist_info = JSON.parse(buffers.toString());
+            const create_playlist_query = `INSERT INTO PLAYLIST (user_id, title) VALUES ( ${create_playlist_info.UserID}, "${create_playlist_info.Title}" )`
+
+            connection.query(create_playlist_query, (error, create_playlist_results) => {
+                if (error) {
+                    console.log(error);
+                    response.writeHead(500);
+                    response.end();
+                    throw error;
+                }
+                
+                const createResponse = {Changed: create_playlist_results.affectedRows};
+
+                response.writeHead(200);
+                response.write(JSON.stringify(createResponse));
+                response.end();          
+                }
+            );
+        }
+    }
+    else if (request.url.substr(0,25) === '/requests/delete_playlist') {
+        if (request.url === '/requests/delete_playlist') {
+            const buffers = [];
+            for await (const chunk of request) {
+                buffers.push(chunk);
+            }
+            const delete_playlist_info = JSON.parse(buffers.toString());
+            const delete_playlist_query = `DELETE FROM PLAYLIST WHERE (id = ${delete_playlist_info.Id} AND user_id = ${delete_playlist_info.UserID})`
+
+            connection.query(delete_playlist_query, (error, delete_playlist_results) => {
+                if (error) {
+                    console.log(error);
+                    response.writeHead(500);
+                    response.end();
+                    throw error;
+                }
+                
+                const createResponse = {Changed: delete_playlist_results.affectedRows};
+
+                response.writeHead(200);
+                response.write(JSON.stringify(createResponse));
+                response.end();          
+                }
+            );
+        }
+    }
+    else if (request.url.substr(0,18) === '/requests/playlist') {
+        if (request.url === '/requests/playlist') {
+            const buffers = [];
+            for await (const chunk of request) {
+                buffers.push(chunk);
+            }
+            const output_playlist_info = JSON.parse(buffers.toString());
+            const output_playlist_query = `SELECT id, title FROM PLAYLIST WHERE (user_id = ${output_playlist_info.UserID})`
+
+            connection.query(output_playlist_query, (error, output_playlist_results) => {
+                if (error) {
+                    console.log(error);
+                    response.writeHead(500);
+                    response.end();
+                    throw error;
+                }
+                const rowsPlaylist = {Info: []}
+                for (const rowPlaylist of output_playlist_results) {
+                    rowsPlaylist.Info.push(rowPlaylist);
+                }
+                response.writeHead(200);
+                response.write(JSON.stringify(rowsPlaylist));
+                response.end();          
+            }
+        );
+    }
+}
+else if (request.url.substr(0,30) === '/requests/insert_song_playlist') {
+    if (request.url === '/requests/insert_song_playlist') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const insert_song_playlist_info = JSON.parse(buffers.toString());
+        const insert_song_playlist_query = `INSERT INTO SONG_PLAYLIST (playlist_id, song_id) VALUES ( ${insert_song_playlist_info.Id}, ${insert_song_playlist_info.SongID} )`
+
+        connection.query(insert_song_playlist_query, (error, create_playlist_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            
+            const createResponse = {Changed: create_playlist_results.affectedRows};
+
+            response.writeHead(200);
+            response.write(JSON.stringify(createResponse));
+            response.end();          
+            }
+        );
+    }
+}
+else if (request.url.substr(0,30) === '/requests/delete_song_playlist') {
+    if (request.url === '/requests/delete_song_playlist') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const insert_song_playlist_info = JSON.parse(buffers.toString());
+        const insert_song_playlist_query = `DELETE FROM SONG_PLAYLIST WHERE ( playlist_id = ${insert_song_playlist_info.Id} AND song_id = ${insert_song_playlist_info.SongID} )`
+
+        connection.query(insert_song_playlist_query, (error, create_playlist_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            
+            const createResponse = {Changed: create_playlist_results.affectedRows};
+
+            response.writeHead(200);
+            response.write(JSON.stringify(createResponse));
+            response.end();          
+            }
+        );
+    }
+}
+else if (request.url.substr(0,28) === '/requests/get_playlist_songs') {
+    if (request.url === '/requests/get_playlist_songs') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const output_playlist_songs_info = JSON.parse(buffers.toString());
+        const output_playlist_songs_query = `SELECT title FROM SONG WHERE (id = (SELECT song_id FROM SONG_PLAYLIST WHERE (playlist_id = ${output_playlist_songs_info.Id})))`
+
+        connection.query(output_playlist_songs_query, (error, output_playlist_songs_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            const rowsPlaylistSongs = {Infor: []}
+            for (const rowPlaylistSongs of output_playlist_songs_results) {
+                rowsPlaylistSongs.Infor.push(rowPlaylistSongs);
+            }
+            response.writeHead(200);
+            response.write(JSON.stringify(rowsPlaylistSongs));
+            response.end();          
+        }
+    );
+}
+}
     else if (request.url.substr(0,16) === '/requests/rating') {
         const buffers = [];    
         for await (const chunk of request) {
@@ -195,6 +353,10 @@ async function server_handler(request, response) {
     }
     else if (request.url === '/songs') {
         file_path = pages_path + '/html/songs.html'
+        content_type = 'text/html';
+    }
+    else if (request.url === '/create_playlist' || request.url === '/create_playlist/') {
+        file_path = pages_path + '/html/playlist.html'
         content_type = 'text/html';
     }
     else if (request.url.substr(0,9) === '/requests') {
