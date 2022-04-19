@@ -274,9 +274,9 @@ else if (request.url.substr(0,22) === '/requests/delete_songs') {
             buffers.push(chunk);
         }
         const delete_song_info = JSON.parse(buffers.toString());
-        const delete_song_query = `DELETE FROM SONG WHERE (title = "${delete_song_info.Title}")`
+        const delete_song_query = `DELETE FROM SONG WHERE (title = "${delete_song_info.Title}" AND user_id = ${delete_song_info.UserID})`
 
-        connection.query(delete_song_query, (error, create_playlist_results) => {
+        connection.query(delete_song_query, (error, delete_songs_results) => {
             if (error) {
                 console.log(error);
                 response.writeHead(500);
@@ -284,7 +284,7 @@ else if (request.url.substr(0,22) === '/requests/delete_songs') {
                 throw error;
             }
             
-            const createResponse = {Changed: create_playlist_results.affectedRows};
+            const createResponse = {Changed: delete_songs_results.affectedRows};
 
             response.writeHead(200);
             response.write(JSON.stringify(createResponse));

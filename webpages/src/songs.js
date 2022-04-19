@@ -123,11 +123,11 @@ get_songs({UserID: user_id}).then(results => {
             return false;
         });
     });
-    // deletebtn.addEventListener('click', () => {
-    //     delete_songs({Id: songTitle.value})
-    //     .then( (delete_songs_response) => {
-    //         return false;
-    //     });
-    // });
+    deletebtn.addEventListener('click', () => {
+        delete_songs({Title: songTitle.value, UserID: user_id})
+        .then( (delete_songs_response) => {
+            return false;
+        });
+    });
 
 });
