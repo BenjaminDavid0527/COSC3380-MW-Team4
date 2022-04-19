@@ -23,6 +23,27 @@ async function rate_song(data) {
     return response.json();
 }
 
+async function upload_songs(data) {
+    const response = await fetch('/requests/upload_songs', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application.json'
+        },
+        body: JSON.stringify(data)
+    })
+    return response.json();
+  }
+
+  async function delete_songs(data) {
+    const response = await fetch('/requests/delete_songs', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application.json'
+        },
+        body: JSON.stringify(data)
+    })
+    return response.json();
+  }
 // Need code to handle if no cookie stored for user
 dc = document.cookie;
 const start_idx = dc.indexOf('UserID')
@@ -55,6 +76,9 @@ function get_rating_button() {
 // results = {Songs: [], Ratings: []}
 get_songs({UserID: user_id}).then(results => {
     const song_list = document.getElementById('song_list');
+    const songTitle = document.getElementById('songTitle');
+    const uploadbtn = document.getElementById('uploadbtn');
+    // const deletebtn = document.getElementById('deletebtn');
     // song_info: {id, title, rating}
     for (const song_info of results.Songs) {
         const li = document.createElement('li');
@@ -93,4 +117,17 @@ get_songs({UserID: user_id}).then(results => {
         li.appendChild(button);
         song_list.appendChild(li);
     }
+    uploadbtn.addEventListener('click', () => {
+        upload_songs({Title: songTitle.value, UserID: user_id})
+        .then( (upload_songs_response) => {
+            return false;
+        });
+    });
+    // deletebtn.addEventListener('click', () => {
+    //     delete_songs({Id: songTitle.value})
+    //     .then( (delete_songs_response) => {
+    //         return false;
+    //     });
+    // });
+
 });
