@@ -238,7 +238,8 @@ button.createbtn i {
   display: block;
 }
 
-#uploadbtn {
+#uploadbtn,
+#deletebtn {
   border: 0;
   padding: 10px;
   border-radius: 3px;
