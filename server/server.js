@@ -318,7 +318,113 @@ else if (request.url.substr(0,28) === '/requests/get_playlist_songs') {
             response.end();          
         }
     );
+    }
 }
+else if (request.url.substr(0,15) === '/requests/albums') {
+    if (request.url === '/requests/albums') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const output_album_info = JSON.parse(buffers.toString());
+        const output_album_query = `SELECT id, title FROM ALBUM WHERE (user_id = ${output_album_info.UserID})`
+
+        connection.query(output_album_query, (error, output_album_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            const rowsAlbums = {Info: []}
+            for (const rowAlbums of output_album_results) {
+                rowsAlbums.Info.push(rowAlbums);
+            }
+            response.writeHead(200);
+            response.write(JSON.stringify(rowsAlbums));
+            response.end();          
+        }
+    );
+}
+}
+else if (request.url.substr(0,24) === '/requests/get_album_songs') {
+    if (request.url === '/requests/get_album_songs') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const output_song_info = JSON.parse(buffers.toString());
+        const output_song_query = `SELECT id, title FROM SONG WHERE (ALBUM.id = ${output_song_info.album_id})`
+
+        connection.query(output_song_query, (error, output_song_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            const rowsSongs = {Info: []}
+            for (const rowSongs of output_song_results) {
+                rowsSongs.Info.push(rowSongs);
+            }
+            response.writeHead(200);
+            response.write(JSON.stringify(rowsSongs));
+            response.end();          
+        }
+    );
+}
+}
+else if (request.url.substr(0,25) === '/requests/createalbum') {
+    if (request.url === '/requests/createalbum') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const create_album_info = JSON.parse(buffers.toString());
+        const create_album_query = `INSERT INTO ALBUM (user_id, title) VALUES ( ${create_album_info.UserID}, "${create_album_info.Title}" )`
+
+        connection.query(create_album_query, (error, create_album_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            
+            const createResponse = {Changed: create_album_results.affectedRows};
+
+            response.writeHead(200);
+            response.write(JSON.stringify(createResponse));
+            response.end();          
+            }
+        );
+    }
+}
+else if (request.url.substr(0,25) === '/requests/deletealbum') {
+    if (request.url === '/requests/deletealbum') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const delete_album_info = JSON.parse(buffers.toString());
+        const delete_album_query = `DELETE FROM ALBUM WHERE (id = ${delete_album_info.Id} AND user_id = ${delete_album_info.UserID})`
+
+        connection.query(delete_album_query, (error, delete_album_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            
+            const createResponse = {Changed: delete_album_results.affectedRows};
+
+            response.writeHead(200);
+            response.write(JSON.stringify(createResponse));
+            response.end();          
+            }
+        );
+    }
 }
     else if (request.url.substr(0,16) === '/requests/rating') {
         const buffers = [];    
