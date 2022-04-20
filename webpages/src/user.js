@@ -25,7 +25,7 @@ const settings = document.querySelector("#settings-tab")
 const tabInfo = document.querySelectorAll(".tabs-panel");
 
 editProfile.addEventListener("click", e => {
-      let tab = tabLinks[3]
+      let tab = tabLinks[2]
       let info = tabInfo
 
       e.preventDefault();
@@ -43,7 +43,7 @@ editProfile.addEventListener("click", e => {
 
 const settingsTab = document.querySelector("#idtopbar");
 settingsTab.addEventListener("click", e => {
-  let tab = tabLinks[3]
+  let tab = tabLinks[2]
   let info = tabInfo
 
   e.preventDefault();
@@ -64,7 +64,20 @@ const uploadButton = document.querySelector("button.createbtn");
 const uploadTab = document.querySelector("#uploadtopbar");
 
 uploadTab.addEventListener("click", e => {
-  window.location.href = "/uploads";
+  let tab = tabLinks[0]
+  let info = tabInfo
+
+  e.preventDefault();
+
+  document.querySelector(".tabs li.active").classList.remove("active");
+  document.querySelector(".tabs-panel.active").classList.remove("active");
+
+  const parentListItem = tab.parentElement;
+  parentListItem.classList.add("active");
+  const index = [...parentListItem.parentElement.children].indexOf(parentListItem);
+
+  const panel = [...info].filter(tab => tab.getAttribute("data-index") == index);
+  panel[0].classList.add("active");
 });
 
 uploadButton.onclick = (()=>{
@@ -175,15 +188,15 @@ async function get_user_name(data) {
       body: JSON.stringify(data)
   })
   return response.json();
-}
+}cs
 
 const user_namess = document.getElementById('user-name');
 
 get_user_name({UserID: user_id})
 .then( (get_user_name_results) => {     
         const h3 = document.createElement("h3")
-        const body = `${get_user_name_results.get_user_name_information}`
+        const body = `${get_user_name_results.get_user_name_results}`
         h3.innerHTML = body;
         user_namess.appendChild(h3);
-
+      
 });
