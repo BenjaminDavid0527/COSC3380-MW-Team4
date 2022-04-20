@@ -25,7 +25,7 @@ const settings = document.querySelector("#settings-tab")
 const tabInfo = document.querySelectorAll(".tabs-panel");
 
 editProfile.addEventListener("click", e => {
-      let tab = tabLinks[2]
+      let tab = tabLinks[3]
       let info = tabInfo
 
       e.preventDefault();
@@ -43,7 +43,7 @@ editProfile.addEventListener("click", e => {
 
 const settingsTab = document.querySelector("#idtopbar");
 settingsTab.addEventListener("click", e => {
-  let tab = tabLinks[2]
+  let tab = tabLinks[3]
   let info = tabInfo
 
   e.preventDefault();
@@ -64,20 +64,7 @@ const uploadButton = document.querySelector("button.createbtn");
 const uploadTab = document.querySelector("#uploadtopbar");
 
 uploadTab.addEventListener("click", e => {
-  let tab = tabLinks[0]
-  let info = tabInfo
-
-  e.preventDefault();
-
-  document.querySelector(".tabs li.active").classList.remove("active");
-  document.querySelector(".tabs-panel.active").classList.remove("active");
-
-  const parentListItem = tab.parentElement;
-  parentListItem.classList.add("active");
-  const index = [...parentListItem.parentElement.children].indexOf(parentListItem);
-
-  const panel = [...info].filter(tab => tab.getAttribute("data-index") == index);
-  panel[0].classList.add("active");
+  window.location.href = "/uploads";
 });
 
 uploadButton.onclick = (()=>{
