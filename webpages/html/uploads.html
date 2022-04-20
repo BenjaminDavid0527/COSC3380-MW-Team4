@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title> Edit Your Playlists </title>
+        <link rel="stylesheet" href="/webpages/src/uploadstyles.css"> <!-- Will need to change this -->
+        <meta name="viewport" content="width=device.width, initial-scale=1.0">
+    </head>
+
+    <body>
+        <div class="topnav" id="topNavBar">
+        <a href="user" class="active">Home</a>
+        <a href="uploads">Upload</a>
+        <a href="songs">Songs</a>
+        <a href="albums">Albums</a>
+        <a href="playlists"> Playlists</a>
+        <a href="reports">Reports</a>
+        </div>
+
+        <div class="uploadsong">
+            <label>Upload New Song: </label> 
+            <form>
+                <input type="text" id="songTitle" class="form_input" placeholder="Song Title" minlength="3" maxlength="20" pattern="!@#$%&*[^()/><\][\\\x22,;|]+{3,20}" oninvalid="alert('Please input a song title! It must be between 3-20 characters and not contain special characters.');" required>
+                <!--<input type="file" id="songUpload" accept="audio/*" required>-->
+                <button id="uploadbtn" type="submit" > Upload </button>
+                <button id="deletebtn" type="submit" > Delete </button>
+
+            </form>
+            <!--<script src="webpages/src/uploadsong.js"></script>-->
+          </div>
+
+          <label>Upload New Album: </label> 
+                <form>
+                    <input type="text" id="albumTitle" class="form_input" placeholder="Album Title" minlength="3" maxlength="20" pattern="!@#$%&*[^()/><\][\\\x22,;|]+{3,20}" oninvalid="alert('Please input an album title! It must be between 3-20 characters and not contain special characters.');" required>
+                    <input type="file" id="albumUpload" accept="audio/*" multiple required>
+                    <button id="uploadbtn" type="button" > Upload </button>
+                 </form>
+    </body>
+</html>

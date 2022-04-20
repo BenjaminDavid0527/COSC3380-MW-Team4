@@ -1,0 +1,87 @@
+:root {
+    --color: #fe4046;
+    font-family: "poppins", sans-serif;
+  }
+  @import url('https://fonts.googleapis.com/css?family=Poppin&display=swap');
+  @import url('https://fonts.googleapis.com/css?family=Bree+Serif&display=swap');
+  @import url('https://fonts.googleapis.com/css?family=Nunito:400,900|Montserrat|Roboto');
+  
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background: lightgray;
+    opacity: 1;
+    overflow-x : hidden;
+    padding-top: 60px;
+    font-family: "poppins", sans-serif;
+    margin: 0 100px;
+    padding-bottom: 100px;
+  }
+
+  .topnav {
+    background-color: white;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+  }
+  
+  .topnav a {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  .topnav a:hover {
+    background-color: #ddd;
+    color: rgba(150, 102, 117, 0.9);
+  }
+  
+  .topnav a:active {
+    background-color: #e47074;
+    color: white;
+  }
+  
+  .topnav .icon {
+    display: none;
+  }
+  
+#uploadbtn,
+#deletebtn {
+  border: 0;
+  padding: 10px;
+  border-radius: 3px;
+  background: #e47074;
+  font-family: "Bree Serif", sans-serif;
+  font-size: 0.75rem;
+  margin: 5px 2px;
+  cursor: pointer;
+  outline: none;
+  margin-bottom: 10px;
+  transition: background .3s ease-in-out;
+  box-shadow: 0px 2px 2px 0px rgba(0,0,0,.3);
+  color: #fff
+}
+
+#uploadbtn:hover,
+#deletebtn:hover {
+  background: rgba(150, 102, 117, 0.9);
+}
+
+input {
+  display: inline-block;
+  padding: 5px 5px;
+}
+
+input:not(:placeholder-shown):invalid {
+  border: red solid 2px;
+}
