@@ -111,6 +111,46 @@ async function handle_posts_requests(request, response) {
             });
         }
     }
+    else if (request.url.substr(0,20) === '/requests/user_songs') {
+        if (request.url === '/requests/user_songs') {
+            const buffers = [];
+            for await (const chunk of request) {
+                buffers.push(chunk);
+            }
+            const user_id = JSON.parse(buffers.toString());
+            const first_query = `SELECT id, title, rating FROM SONG WHERE (user_id = ${user_id.UserID})`;
+            const second_query = `SELECT song_id, rating FROM RATING WHERE (user_id = ${user_id.UserID})`
+            connection.query(first_query, (error, first_results) => {
+                if (error) {
+                    console.log(error);
+                    response.writeHead(500);
+                    response.end();
+                    throw error;
+                }
+                connection.query(second_query, (error, second_results) => {
+                    if (error) {
+                        console.log(error);
+                        response.writeHead(500);
+                        response.end();
+                        throw error;
+                    }
+                    else {
+                        const rows = {Songs: [], Ratings: []};
+                        for (const row of first_results) {
+                            rows.Songs.push(row);
+                        }
+                        for (const row of second_results) {
+                            rows.Ratings.push(row);
+                        }
+                        response.writeHead(200);
+                        response.write(JSON.stringify(rows));
+                        response.end();
+                    }
+                });
+
+            });
+        }
+    }
     else if (request.url.substr(0,22) === '/requests/upload_songs') {
         if (request.url === '/requests/upload_songs') {
             const buffers = [];
