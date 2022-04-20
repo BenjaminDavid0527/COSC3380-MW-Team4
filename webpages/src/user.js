@@ -198,5 +198,5 @@ get_user_name({UserID: user_id})
         const body = `${get_user_name_results.get_user_name_information}`
         h3.innerHTML = body;
         user_namess.appendChild(h3);
-        alert(user_id);
+
 });
