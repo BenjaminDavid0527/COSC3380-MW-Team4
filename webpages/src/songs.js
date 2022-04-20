@@ -96,7 +96,7 @@ get_songs({UserID: user_id}).then(results => {
                 wasRated = true;
             }
         }
-        const body = `Title: ${song_info.title} Rating: ${song_info.rating}\t`
+        const body = `Title: ${song_info.title}, Rating: ${song_info.rating}\t`
         li.innerHTML = body;
         li.appendChild(select);
         button.addEventListener('click', () => {
