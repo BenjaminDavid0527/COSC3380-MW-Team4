@@ -14,10 +14,12 @@
       
       <div class="topnav" id="topNavBar">
         <a href="user" class="active">Home</a>
-        <a id = "uploadtopbar" href="#">Upload</a>
+        <a href="uploads">Upload</a>
         <a href="songs">Songs</a>
         <a href="albums">Albums</a>
+
         <a href="playlist"> Playlists</a>
+
         <a href="reports">Reports</a>
         <a id="idtopbar" href="#">Settings</a>
       </div>
@@ -62,10 +64,10 @@
                               <li id="albums-tab">
                                 <a href="">Albums</a>
                               </li>
-                              <!-- <li id="playlists-tab">
+                              <li id="playlists-tab">
                                 <a href="">Playlists</a>
 
-                              </li> -->
+                              </li>
                               <li id="settings-tab">
                                 <a href="">Settings</a>
                               </li>
@@ -73,18 +75,6 @@
                             <div class="tabs-content">
                               <div class="tabs-panel active" data-index="0">
                                 <!-- content here -->
-                                <div class="uploadsong">
-                                  <label>Upload New Song: </label> 
-                                  <form>
-                                      <input type="text" id="songTitle" class="form_input" placeholder="Song Title" minlength="3" maxlength="20" pattern="!@#$%&*[^()/><\][\\\x22,;|]+{3,20}" oninvalid="alert('Please input a song title! It must be between 3-20 characters and not contain special characters.');" required>
-
-                                      <!--<input type="file" id="songUpload" accept="audio/*" required>-->
-                                      <button id="uploadbtn" type="submit" > Upload </button>
-                                      <button id="deletebtn" type="submit" > Delete </button>
-
-                                  </form>
-                                  <!--<script src="webpages/src/uploadsong.js"></script>-->
-                                </div>
                                 <body>
                                   <ol id="song_list">
                           
@@ -94,52 +84,30 @@
                               </div>
                               <div class="tabs-panel" data-index="1">
                                 <!-- content here -->
-                                <label>Upload New Album: </label> 
-                                  <form>
-                                      <input type="text" id="albumTitle" class="form_input" placeholder="Album Title" minlength="3" maxlength="20" pattern="!@#$%&*[^()/><\][\\\x22,;|]+{3,20}" oninvalid="alert('Please input an album title! It must be between 3-20 characters and not contain special characters.');" required>
-                                      <input type="file" id="albumUpload" accept="audio/*" multiple required>
-                                      <button id="uploadbtn" type="submit" > Upload </button>
-                                  </form>
-                                  
-                                <body>
+                                <body id="albums-body">
                                 <li id="album_list">
 
                                 </li>
-                                <script src="/webpages/src/albums.js"> </script>
+                                <script src="/webpages/src/user_albums.js"> </script>
                                 </body>
                               </div>
 
-                              <!-- playlist tab below -->
-                              <!--
+
                               <div class="tabs-panel" data-index="2">
-                                <!-- content here 
-                                <div id="playlistcreation">
-                                  <!-- <div class="wrapper">
-                                      <div class="title-text">
-                                          <div class="title songs">Create Playlist</div>
-                                      </div>
-                                  </div>
-                                  <form>
-                                      <label for="playlistname">New playlist name:</label><br>
-                                  </form>
-                                  <ol id="createButton">
-                          
-                                  </ol>
-                                  <ol id="song_list">
-                          
-                                  </ol>
+                                <!--content here -->
+                                <body id="playlistbody">
                                   <ol id="playlist_list">
                           
                                   </ol>
                                   <ol id="playlist_songs_list">
                           
                                   </ol>
-                                  <script src="webpages/src/create_playlist.js"> </script>
-                                </div>
+                          
+                                  <script src="/webpages/src/user_playlist.js"> </script>
+                                  </body>
                               </div>
-                            -->
 
-                              <div class="tabs-panel" data-index="2">
+                              <div class="tabs-panel" data-index="3">
                                <div class="profile tabShow">
                                  <h1>Personal Info</h1>
                                  <h2>Username</h2>
@@ -196,7 +164,6 @@
             background-image: url(webpages/src/data/shutterstock_345129686.jpg);
             background-repeat: none;
             background-size: 100%, 100%;
-
           }
           </style>
     </body>
