@@ -737,6 +737,10 @@ async function server_handler(request, response) {
         file_path = pages_path + '/html/playlist.html'
         content_type = 'text/html';
     }
+    else if (request.url === '/reports' || request.url === '/reports/') {
+        file_path = pages_path + '/html/reports.html'
+        content_type = 'text/html';
+    }
     else if (request.url.substr(0,9) === '/requests') {
         handle_posts_requests(request, response);
         return;
