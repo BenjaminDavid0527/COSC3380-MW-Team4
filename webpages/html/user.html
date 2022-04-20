@@ -15,24 +15,27 @@
       <div class="topnav" id="topNavBar">
         <a href="user" class="active">Home</a>
         <a id = "uploadtopbar" href="#">Upload</a>
+        <a href="songs">Songs</a>
+        <a href="albums">Albums</a>
         <a href="create_playlist"> Playlists</a>
+        <a href="reports">Reports</a>
         <a id="idtopbar" href="#">Settings</a>
       </div>
         <div class="container">
             <div class="profile-header">
                 <div class="profile-img">
-                    <img src="webpages/data/stockphoto.jpeg" width="200" alt="">
+                    <img src="webpages/src/data/standardpfp.png" width="200" alt="">
                 </div>
                 <div class="profile-nav-info">
                   <!--populate first last from user -->
-                    <h3 id="user-name" value="first last"> </h3>
+                    <h3 id="user-name" value="first last"> username </h3>
                 </div>
             </div>
             <div class="main-bd">
                 <div class="left-side">
                     <div class="profile-side">
                         <p class="mobile-no" id="un" value="username"><i class="fa fa-user"></i> username</p>
-                        <p class="user-mail"><i class="fa fa-envelope"></i>hello@coogmusic.com</p>
+                        <!--<p class="user-mail"><i class="fa fa-envelope"></i>hello@coogmusic.com</p>-->
                         <div class="user-bio">
                             <!-- <h3>Bio</h3>
                             <p class="bio"></p> -->
@@ -95,13 +98,12 @@
                                       <input type="file" id="albumUpload" accept="audio/*" multiple required>
                                       <button id="uploadbtn" type="submit" > Upload </button>
                                   </form>
-                                  <!--
+                                  
                                 <body>
                                 <li id="album_list">
 
                                 </li>
-                              -->
-                                <!--<script src="/webpages/src/albums.js"> </script>-->
+                                <script src="/webpages/src/albums.js"> </script>
                                 </body>
                               </div>
 
@@ -138,14 +140,10 @@
                               <div class="tabs-panel" data-index="2">
                                <div class="profile tabShow">
                                  <h1>Personal Info</h1>
-                                 <h2>Full Name</h2>
-                                 <input id="inputname" type="text" class="input" placeholder="Jane Doe">
                                  <h2>Username</h2>
                                  <input id="usern" type="text" class="input" placeholder="username">
                                  <h2>Password</h2>
                                  <input type="password" class="input" minlength="8" maxlength="20">
-                                 <h2>Email</h2>
-                                 <input id = "emailIn" type="email" class="input" placeholder="example@example.com">
                                  <h2>Bio</h2>
                                  <input type="text" class="input" placeholder="Tell us about yourself." maxlength="300">
                                 </div>
