@@ -1,3 +1,4 @@
+
 //navigate between tabs
 const tabLinks = document.querySelectorAll(".tabs a");
 const tabPanels = document.querySelectorAll(".tabs-panel");
@@ -176,3 +177,26 @@ updateButton.addEventListener("click", e => {
   window.location.reload(true);
 });
 
+//Getting User Name to be displayed
+
+async function get_user_name(data) {
+  const response = await fetch('/requests/get_user_name', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application.json'
+      },
+      body: JSON.stringify(data)
+  })
+  return response.json();
+}
+
+const user_namess = document.getElementById('user-name');
+
+get_user_name({UserID: user_id})
+.then( (get_user_name_results) => {     
+        const h3 = document.createElement("h3")
+        const body = `${get_user_name_results.get_user_name_information}`
+        h3.innerHTML = body;
+        user_namess.appendChild(h3);
+        alert(user_id);
+});
