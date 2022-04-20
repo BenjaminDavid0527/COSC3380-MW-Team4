@@ -70,6 +70,7 @@ async function handle_posts_requests(request, response) {
             }
         });
     }
+    
     else if (request.url.substr(0,15) === '/requests/songs') {
         if (request.url === '/requests/songs') {
             const buffers = [];
@@ -213,6 +214,181 @@ async function handle_posts_requests(request, response) {
                 response.end();          
             }
         );
+    }
+}
+else if (request.url.substr(0,35) === '/requests/get_playlist_ainformation') {
+    if (request.url === '/requests/get_playlist_ainformation') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const ainformation = JSON.parse(buffers.toString());
+        const ainformation_query = `SELECT title, date_created, song_count FROM PLAYLIST WHERE(user_id = (SELECT id FROM USER WHERE name = "${ainformation.ArtistName}"))`
+        connection.query(ainformation_query, (error, ainformation_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            const rows = {Ainformation: []};
+            for (const row of ainformation_results) {
+                rows.Ainformation.push(row);
+            }
+            response.writeHead(200);
+            response.write(JSON.stringify(rows));
+            response.end();
+        });
+    }
+}
+else if (request.url.substr(0,40) === '/requests/get_playlist_ptitleinformation') {
+    if (request.url === '/requests/get_playlist_ptitleinformation') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const ptitleinformation = JSON.parse(buffers.toString());
+        const ptitleinformation_query = `SELECT title, date_created, song_count FROM PLAYLIST WHERE( title = "${ptitleinformation.PlaylistName}")`
+        connection.query(ptitleinformation_query, (error, ptitleinformation_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            const rows = {Ptitleinformation: []};
+            for (const row of ptitleinformation_results) {
+                rows.Ptitleinformation.push(row);
+            }
+            response.writeHead(200);
+            response.write(JSON.stringify(rows));
+            response.end();
+        });
+    }
+}
+else if (request.url.substr(0,35) === '/requests/get_playlist_sinformation') {
+    if (request.url === '/requests/get_playlist_sinformation') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const sinformation = JSON.parse(buffers.toString());
+        const sinformation_query = `SELECT title, date_created, song_count FROM PLAYLIST WHERE(id = (SELECT playlist_id FROM SONG_PLAYLIST WHERE song_id = (SELECT id FROM SONG WHERE title = "${sinformation.SongTitle}")))`
+        connection.query(sinformation_query, (error, sinformation_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            const rows = {Sinformation: []};
+            for (const row of sinformation_results) {
+                rows.Sinformation.push(row);
+            }
+            response.writeHead(200);
+            response.write(JSON.stringify(rows));
+            response.end();
+        });
+    }
+}
+else if (request.url.substr(0,37) === '/requests/get_playlist_pinformationMT') {
+    if (request.url === '/requests/get_playlist_pinformationMT') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const pinformationMT = JSON.parse(buffers.toString());
+        const pinformationMT_query = `SELECT title, date_created, song_count FROM PLAYLIST WHERE( song_count > ${pinformationMT.NSongs})`
+        connection.query(pinformationMT_query, (error, pinformationMT_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            const rows = {PinformationMT: []};
+            for (const row of pinformationMT_results) {
+                rows.PinformationMT.push(row);
+            }
+            response.writeHead(200);
+            response.write(JSON.stringify(rows));
+            response.end();
+        });
+    }
+}
+else if (request.url.substr(0,37) === '/requests/get_playlist_pinformationLT') {
+    if (request.url === '/requests/get_playlist_pinformationLT') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const pinformationLT = JSON.parse(buffers.toString());
+        const pinformationLT_query = `SELECT title, date_created, song_count FROM PLAYLIST WHERE( song_count < ${pinformationLT.NSongs})`
+        connection.query(pinformationLT_query, (error, pinformationLT_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            const rows = {PinformationLT: []};
+            for (const row of pinformationLT_results) {
+                rows.PinformationLT.push(row);
+            }
+            response.writeHead(200);
+            response.write(JSON.stringify(rows));
+            response.end();
+        });
+    }
+}
+else if (request.url.substr(0,37) === '/requests/get_playlist_pinformationET') {
+    if (request.url === '/requests/get_playlist_pinformationET') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const pinformationET = JSON.parse(buffers.toString());
+        const pinformationET_query = `SELECT title, date_created, song_count FROM PLAYLIST WHERE( song_count = ${pinformationET.NSongs})`
+        connection.query(pinformationET_query, (error, pinformationET_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            const rows = {PinformationET: []};
+            for (const row of pinformationET_results) {
+                rows.PinformationET.push(row);
+            }
+            response.writeHead(200);
+            response.write(JSON.stringify(rows));
+            response.end();
+        });
+    }
+}
+else if (request.url.substr(0,23) === '/requests/get_user_name') {
+    if (request.url === '/requests/get_user_name') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const get_user_name_info = JSON.parse(buffers.toString());
+        const get_user_name_query = `SELECT name FROM USER WHERE( id = "${get_user_name_info.UserID}")`
+        connection.query(get_user_name_query, (error, get_user_name_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            const rows = {get_user_name_information: []};
+            for (const row of get_user_name_results) {
+                rows.get_user_name_information.push(row);
+            }
+            response.writeHead(200);
+            response.write(JSON.stringify(rows));
+            response.end();
+        });
     }
 }
 else if (request.url.substr(0,30) === '/requests/insert_song_playlist') {
@@ -514,6 +690,10 @@ async function server_handler(request, response) {
         content_type = 'text/html';
     }
     else if (request.url === '/create_playlist' || request.url === '/create_playlist/') {
+        file_path = pages_path + '/html/create_playlist.html'
+        content_type = 'text/html';
+    }
+    else if (request.url === '/playlist' || request.url === '/playlist/') {
         file_path = pages_path + '/html/playlist.html'
         content_type = 'text/html';
     }
