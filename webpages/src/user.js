@@ -188,15 +188,16 @@ async function get_user_name(data) {
       body: JSON.stringify(data)
   })
   return response.json();
-}cs
+}
 
 const user_namess = document.getElementById('user-name');
 
 get_user_name({UserID: user_id})
-.then( (get_user_name_results) => {     
-        const h3 = document.createElement("h3")
-        const body = `${get_user_name_results.get_user_name_results}`
-        h3.innerHTML = body;
-        user_namess.appendChild(h3);
-      
+.then( (get_user_name_results) => {  
+  for(const results_info of get_user_name_results.Un) { 
+      const h3 = document.createElement("h3")
+      const body = `${results_info.Un}`
+      h3.innerHTML = body;
+      user_namess.appendChild(h3);
+  }    
 });
