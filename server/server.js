@@ -733,12 +733,20 @@ async function server_handler(request, response) {
         file_path = pages_path + '/html/create_playlist.html'
         content_type = 'text/html';
     }
-    else if (request.url === '/playlist' || request.url === '/playlist/') {
-        file_path = pages_path + '/html/playlist.html'
+    else if (request.url === '/playlists' || request.url === '/playlists/') {
+        file_path = pages_path + '/html/playlists.html'
         content_type = 'text/html';
     }
     else if (request.url === '/reports' || request.url === '/reports/') {
         file_path = pages_path + '/html/reports.html'
+        content_type = 'text/html';
+    }
+    else if (request.url === '/albums' || request.url === '/albums/') {
+        file_path = pages_path + '/html/albums.html'
+        content_type = 'text/html';
+    }
+    else if (request.url === '/uploads' || request.url === '/uploads/') {
+        file_path = pages_path + '/html/uploads.html'
         content_type = 'text/html';
     }
     else if (request.url.substr(0,9) === '/requests') {
