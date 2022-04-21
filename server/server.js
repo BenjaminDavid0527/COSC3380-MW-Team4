@@ -413,7 +413,7 @@ else if (request.url.substr(0,23) === '/requests/get_user_name') {
             buffers.push(chunk);
         }
         const get_user_name_info = JSON.parse(buffers.toString());
-        const get_user_name_query = `SELECT name FROM USER WHERE( id = "${get_user_name_info.UserID}")`
+        const get_user_name_query = `SELECT name FROM USER WHERE( id = ${get_user_name_info.UserID})`
         connection.query(get_user_name_query, (error, get_user_name_results) => {
             if (error) {
                 console.log(error);
@@ -421,9 +421,9 @@ else if (request.url.substr(0,23) === '/requests/get_user_name') {
                 response.end();
                 throw error;
             }
-            const rows = {get_user_name_information: []};
+            const rows = {Un: []};
             for (const row of get_user_name_results) {
-                rows.get_user_name_information.push(row);
+                rows.Un.push(row);
             }
             response.writeHead(200);
             response.write(JSON.stringify(rows));
