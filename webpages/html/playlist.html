@@ -8,59 +8,22 @@
     </head>
 
     <body>
+        <div class="mtext">Search Playlists By Title: </div> <br>
         <div class="topnav" id="topNavBar">
             <a href="user" class="active">Home</a>
             <a href="create_playlist"> Edit Your Playlists</a>
         </div>
 
-        <div class="mtext">Display Playlists By: </div> <br>
+        <input type="text" id="myInput" placeholder="Search for names..">
 
-        <select id="choosetype">
-            <option value="Artist Username">Artist Username</option>
-            <option value="Playlist Title">Playlist Title</option>
-            <option value="Number of Songs">Number of Songs</option>
-            <option value="By Song">By Song</option>
-            <option value="All">All</option>
-        </select>
+        <ul id="searchplaylist">
 
-        <div class="mtext">Artist Information: </div>
-
-        <form>
-            <label for="title songs" class="mtext">Artist Username:</label> 
-            <input type="text" id="aname" class="input" placeholder="Artist Username"><br>
-            <button type="button" id = "anameSubmit">Submit</button><br><br>
-        </form>
-
+        </ul>
         <div class="mtext">Playlist Information: </div>
-
-        <form>
-            <label for="title songs" class="mtext">Title:</label>
-            <input type="text" id="ptitle" class="input" placeholder="Playlist Title"><br>
-            <button type="button" id = "ptitleSubmit">Submit</button><br><br>
-        </form>
-
-        <form>
-            <label for="Number of Songs" class="mtext">  Number of Songs:</label>
-            <select id="quantity">
-                <option value="More than">More than</option>
-                <option value="Less than">Less than</option>
-                <option value="Equal to">Equal to</option>
-            </select>
-            <input type="number" id="nsongs" class="input" placeholder="Number of Songs"><br>
-            <button type="button" id = "pinfoSubmit">Submit</button><br><br>
-        </form>
-
-
-        <div class="mtext">By Song: </div>
-
-        <form>
-            <label for="Title" class="mtext">Title:</label>
-            <input type="text" id="stitle" class="input" placeholder="Song Title"><br>
-            <button type="button" id="sinfoSubmit">Submit</button><br><br>
-        </form>
-
-        <hr />
         <div id="playlist_list"></div>
+
+        <div class="mtext">Playlist Songs: </div>
+        <div id="song_playlist_list"></div>
 
         <script src="/webpages/src/playlist.js"> </script>
 

@@ -256,6 +256,33 @@ async function handle_posts_requests(request, response) {
         );
     }
 }
+else if (request.url.substr(0,26) === '/requests/get_all_playlist') {
+    if (request.url === '/requests/get_all_playlist') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const output_playlist_info = JSON.parse(buffers.toString());
+        const output_playlist_query = `SELECT title FROM PLAYLIST`
+
+        connection.query(output_playlist_query, (error, output_playlist_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            const rowsPlaylist = {Info: []}
+            for (const rowPlaylist of output_playlist_results) {
+                rowsPlaylist.Info.push(rowPlaylist);
+            }
+            response.writeHead(200);
+            response.write(JSON.stringify(rowsPlaylist));
+            response.end();          
+        }
+    );
+}
+}
 
 else if (request.url.substr(0,35) === '/requests/get_playlist_ainformation') {
     if (request.url === '/requests/get_playlist_ainformation') {
@@ -781,6 +808,10 @@ async function server_handler(request, response) {
     }
     else if (request.url === '/reports' || request.url === '/reports/') {
         file_path = pages_path + '/html/reports.html'
+        content_type = 'text/html';
+    }
+    else if (request.url === '/playlist_report' || request.url === '/playlist_report/') {
+        file_path = pages_path + '/html/playlist_report.html'
         content_type = 'text/html';
     }
     else if (request.url === '/albums' || request.url === '/albums/') {
