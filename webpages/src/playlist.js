@@ -108,13 +108,34 @@ anameSubmit.addEventListener('click', () => {
     else{
         get_playlist_ainformation({ArtistName: aname.value})
         .then( (get_playlist_ainformation_response) => {
-            for (const playlist_info of get_playlist_ainformation_response.Ainformation) {
-                const li = document.createElement('li');
-        
-                const body = `Title: ${playlist_info.title} Date Created: ${playlist_info.date_created} Number of Songs: ${playlist_info.song_count}\t`
-                li.innerHTML = body;
-                playlist_list.appendChild(li);
-            }
+        //Create a HTML Table element.
+        var table = document.createElement("TABLE");
+        table.border = "1";
+
+        var customers = new Array();
+        customers.push(["Playlist Title", "Date Created", "Number of Songs"]);
+
+        //Add the header row.
+        var row = table.insertRow(-1);
+        for (var i = 0; i < 3; i++) {
+            var headerCell = document.createElement("TH");
+            headerCell.innerHTML = customers[0][i];
+            row.appendChild(headerCell);
+        }
+ 
+        //Add the data rows.
+        for (const playlist_info of get_playlist_ainformation_response.Ainformation) {
+            row = table.insertRow(-1);
+            var cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.title;
+            cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.date_created;
+            cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.song_count;
+        }
+ 
+        playlist_list.innerHTML = "";
+        playlist_list.appendChild(table);
         });
     }
 });
@@ -126,13 +147,34 @@ ptitleSubmit.addEventListener('click', () => {
     else{
         get_playlist_ptitleinformation({PlaylistName: ptitle.value})
         .then( (get_playlist_ptitleinformation_response) => {
-            for (const playlist_info of get_playlist_ptitleinformation_response.Ptitleinformation) {
-                const li = document.createElement('li');
-        
-                const body = `Title: ${playlist_info.title} Date Created: ${playlist_info.date_created} Number of Songs: ${playlist_info.song_count}\t`
-                li.innerHTML = body;
-                playlist_list.appendChild(li);
-            }
+                    //Create a HTML Table element.
+        var table = document.createElement("TABLE");
+        table.border = "1";
+
+        var customers = new Array();
+        customers.push(["Playlist Title", "Date Created", "Number of Songs"]);
+
+        //Add the header row.
+        var row = table.insertRow(-1);
+        for (var i = 0; i < 3; i++) {
+            var headerCell = document.createElement("TH");
+            headerCell.innerHTML = customers[0][i];
+            row.appendChild(headerCell);
+        }
+ 
+        //Add the data rows.
+        for (const playlist_info of get_playlist_ptitleinformation_response.Ptitleinformation) {
+            row = table.insertRow(-1);
+            var cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.title;
+            cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.date_created;
+            cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.song_count;
+        }
+ 
+        playlist_list.innerHTML = "";
+        playlist_list.appendChild(table);
         });
     }
 });
@@ -144,37 +186,100 @@ pinfoSubmit.addEventListener('click', () => {
     else if(quantity.value == "More than"){
         get_playlist_pinformationMT({NSongs: nsongs.value})
         .then( (get_playlist_pinformationMT_response) => {
-            for (const playlist_info of get_playlist_pinformationMT_response.PinformationMT) {
-                const li = document.createElement('li');
-        
-                const body = `Title: ${playlist_info.title} Date Created: ${playlist_info.date_created} Number of Songs: ${playlist_info.song_count}\t`
-                li.innerHTML = body;
-                playlist_list.appendChild(li);
-            }
+        //Create a HTML Table element.
+        var table = document.createElement("TABLE");
+        table.border = "1";
+
+        var customers = new Array();
+        customers.push(["Playlist Title", "Date Created", "Number of Songs"]);
+
+        //Add the header row.
+        var row = table.insertRow(-1);
+        for (var i = 0; i < 3; i++) {
+            var headerCell = document.createElement("TH");
+            headerCell.innerHTML = customers[0][i];
+            row.appendChild(headerCell);
+        }
+ 
+        //Add the data rows.
+        for (const playlist_info of get_playlist_pinformationMT_response.PinformationMT) {
+            row = table.insertRow(-1);
+            var cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.title;
+            cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.date_created;
+            cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.song_count;
+        }
+ 
+        playlist_list.innerHTML = "";
+        playlist_list.appendChild(table);
         });
     }
     else if(quantity.value == "Less than"){
         get_playlist_pinformationLT({NSongs: nsongs.value})
         .then( (get_playlist_pinformationLT_response) => {
-            for (const playlist_info of get_playlist_pinformationLT_response.PinformationLT) {
-                const li = document.createElement('li');
-        
-                const body = `Title: ${playlist_info.title} Date Created: ${playlist_info.date_created} Number of Songs: ${playlist_info.song_count}\t`
-                li.innerHTML = body;
-                playlist_list.appendChild(li);
-            }
+                    //Create a HTML Table element.
+        var table = document.createElement("TABLE");
+        table.border = "1";
+
+        var customers = new Array();
+        customers.push(["Playlist Title", "Date Created", "Number of Songs"]);
+
+        //Add the header row.
+        var row = table.insertRow(-1);
+        for (var i = 0; i < 3; i++) {
+            var headerCell = document.createElement("TH");
+            headerCell.innerHTML = customers[0][i];
+            row.appendChild(headerCell);
+        }
+ 
+        //Add the data rows.
+        for (const playlist_info of get_playlist_pinformationLT_response.PinformationLT) {
+            row = table.insertRow(-1);
+            var cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.title;
+            cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.date_created;
+            cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.song_count;
+        }
+ 
+        playlist_list.innerHTML = "";
+        playlist_list.appendChild(table);
         });
     }
     else if(quantity.value == "Equal to"){
         get_playlist_pinformationET({NSongs: nsongs.value })
         .then( (get_playlist_pinformationET_response) => {
-            for (const playlist_info of get_playlist_pinformationET_response.PinformationET) {
-                const li = document.createElement('li');
-        
-                const body = `Title: ${playlist_info.title} Date Created: ${playlist_info.date_created} Number of Songs: ${playlist_info.song_count}\t`
-                li.innerHTML = body;
-                playlist_list.appendChild(li);
-            }
+                    //Create a HTML Table element.
+        var table = document.createElement("TABLE");
+        table.border = "1";
+
+        var customers = new Array();
+        customers.push(["Playlist Title", "Date Created", "Number of Songs"]);
+
+        //Add the header row.
+        var row = table.insertRow(-1);
+        for (var i = 0; i < 3; i++) {
+            var headerCell = document.createElement("TH");
+            headerCell.innerHTML = customers[0][i];
+            row.appendChild(headerCell);
+        }
+ 
+        //Add the data rows.
+        for (const playlist_info of get_playlist_pinformationET_response.PinformationET) {
+            row = table.insertRow(-1);
+            var cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.title;
+            cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.date_created;
+            cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.song_count;
+        }
+ 
+        playlist_list.innerHTML = "";
+        playlist_list.appendChild(table);
         });
     }
 });
@@ -186,13 +291,34 @@ sinfoSubmit.addEventListener('click', () => {
     else{
         get_playlist_sinformation({SongTitle: stitle.value})
         .then( (get_playlist_sinformation_response) => {
-            for (const playlist_info of get_playlist_sinformation_response.Sinformation) {
-                const li = document.createElement('li');
+                    //Create a HTML Table element.
+        var table = document.createElement("TABLE");
+        table.border = "1";
 
-                const body = `Title: ${playlist_info.title} Date Created: ${playlist_info.date_created} Number of Songs: ${playlist_info.song_count}\t`
-                li.innerHTML = body;
-                playlist_list.appendChild(li);
-            }
+        var customers = new Array();
+        customers.push(["Playlist Title", "Date Created", "Number of Songs"]);
+
+        //Add the header row.
+        var row = table.insertRow(-1);
+        for (var i = 0; i < 3; i++) {
+            var headerCell = document.createElement("TH");
+            headerCell.innerHTML = customers[0][i];
+            row.appendChild(headerCell);
+        }
+ 
+        //Add the data rows.
+        for (const playlist_info of get_playlist_sinformation_response.Sinformation) {
+            row = table.insertRow(-1);
+            var cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.title;
+            cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.date_created;
+            cell = row.insertCell(-1);
+            cell.innerHTML = playlist_info.song_count;
+        }
+ 
+        playlist_list.innerHTML = "";
+        playlist_list.appendChild(table);
         });
     }
 });
