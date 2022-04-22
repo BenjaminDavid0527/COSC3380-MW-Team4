@@ -11,34 +11,36 @@
         <div class="topnav" id="topNavBar">
             <a href="user" class="active">Home</a>
             <a href="create_playlist"> Edit Your Playlists</a>
-          </div>
-        <div class="wrapper">
-            <div class="title-text">
-                <div class="title songs">Display Playlists By: </div> <br>
-            </div>
         </div>
-        <div class="wrapper">
-            <div class="title-text">
-                <div class="title songs">Artist Information: </div>
-            </div>
-        </div>
+
+        <div class="mtext">Display Playlists By: </div> <br>
+
+        <select id="choosetype">
+            <option value="Artist Username">Artist Username</option>
+            <option value="Playlist Title">Playlist Title</option>
+            <option value="Number of Songs">Number of Songs</option>
+            <option value="By Song">By Song</option>
+            <option value="All">All</option>
+        </select>
+
+        <div class="mtext">Artist Information: </div>
+
         <form>
-            <label for="title songs">Artist Username:</label> 
+            <label for="title songs" class="mtext">Artist Username:</label> 
             <input type="text" id="aname" class="input" placeholder="Artist Username"><br>
             <button type="button" id = "anameSubmit">Submit</button><br><br>
         </form>
-        <div class="wrapper">
-            <div class="title-text">
-                <div class="title songs">Playlist Information: </div>
-            </div>
-        </div>
+
+        <div class="mtext">Playlist Information: </div>
+
         <form>
-            <label for="title songs">Title:</label>
+            <label for="title songs" class="mtext">Title:</label>
             <input type="text" id="ptitle" class="input" placeholder="Playlist Title"><br>
             <button type="button" id = "ptitleSubmit">Submit</button><br><br>
         </form>
+
         <form>
-            <label for="title songs">  Number of Songs:</label>
+            <label for="Number of Songs" class="mtext">  Number of Songs:</label>
             <select id="quantity">
                 <option value="More than">More than</option>
                 <option value="Less than">Less than</option>
@@ -47,22 +49,27 @@
             <input type="number" id="nsongs" class="input" placeholder="Number of Songs"><br>
             <button type="button" id = "pinfoSubmit">Submit</button><br><br>
         </form>
-        <div class="wrapper">
-            <div class="title-text">
-                <div class="title songs">By Song: </div>
-            </div>
-        </div>
+
+
+        <div class="mtext">By Song: </div>
+
         <form>
-            <label for="title songs">Title:</label>
+            <label for="Title" class="mtext">Title:</label>
             <input type="text" id="stitle" class="input" placeholder="Song Title"><br>
             <button type="button" id="sinfoSubmit">Submit</button><br><br>
         </form>
 
-        <ol id="playlist_list">
-
-        </ol>
-
+        <hr />
+        <div id="playlist_list"></div>
 
         <script src="/webpages/src/playlist.js"> </script>
+
+        <style>
+            body {
+            background-image: url(webpages/src/data/shutterstock_138386987.jpg);
+            background-repeat: none;
+            background-size: 100%, 100%;
+            }
+        </style>
     </body>
 </html>
