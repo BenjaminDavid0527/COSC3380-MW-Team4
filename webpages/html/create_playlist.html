@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title> Edit Your Playlists </title>
-        <link rel="stylesheet" href="/webpages/src/userstyles.css"> <!-- Will need to change this -->
+        <link rel="stylesheet" href="/webpages/src/create_playlist.css"> <!-- Will need to change this -->
         <meta name="viewport" content="width=device.width, initial-scale=1.0">
     </head>
 
@@ -11,30 +11,54 @@
         <div class="topnav" id="topNavBar">
             <a href="user" class="active">Home</a>
             <a href="playlist"> Back to Playlists</a>
-          </div>
-        <div class="wrapper">
-            <div class="title-text">
-                <div class="title songs">Create Playlist</div>
-            </div>
         </div>
+
+
+        <div class="mtext">Create a New Playlist</div><br>
+
+
         <form>
-            <label for="playlistname">New playlist name:</label><br>
+            <label for="New playlist name" class="mtext">New playlist name: </label>
+            <input type="text" id="npname" class="input" placeholder="New Playlist Name"><br>
+            <button type="button" id = "npSubmit">Submit</button><br><br>
         </form>
-        <ol id="createButton">
 
-        </ol>
-        <ol id="song_list">
+        <div class="mtext">Choose a playlist to edit</div><br>
+        <form>
+            <label for="text" class="mtext">Playlist: </label>
+            <select id="chooseplaylist">
+                <option disabled selected value> -- select a playlist -- </option>
+            </select><br><br>
+        </form>
 
-        </ol>
-        <ol id="playlist_list">
+        <hr />
 
-        </ol>
-        <ol id="playlist_songs_list">
+        <form>
+            <label for="text" class="mtext">Playlist's Songs</label>
+        </form>
 
-        </ol>
+        <div id="song_playlist_list"></div>
+
+        <button type="button" id = "deleteplaylistbutton">Delete Playlist</button><br><br>
+
+        <hr />
+
+        <form>
+            <label for="text" class="mtext">Songs</label>
+        </form>
+
+        <div id="non_song_playlist_list"></div>
+        
 
 
 
         <script src="/webpages/src/create_playlist.js"> </script>
+        <style>
+            body {
+              background-image: url(webpages/src/data/shutterstock_1691839939.jpg);
+              background-repeat: none;
+            background-size: 100%, 100%;
+            }
+            </style>
     </body>
 </html>

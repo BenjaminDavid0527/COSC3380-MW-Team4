@@ -1,43 +1,4 @@
-const body = document.querySelector('body');
-
-const aname = document.getElementById('aname');
-const anameSubmit = document.getElementById('anameSubmit');
-
-const ptitle = document.getElementById('ptitle');
-const ptitleSubmit = document.getElementById('ptitleSubmit');
-
-const quantity = document.getElementById('quantity');
-const nsongs = document.getElementById('nsongs');
-const pinfoSubmit = document.getElementById('pinfoSubmit');
-
-const stitle = document.getElementById('stitle');
-const sinfoSubmit = document.getElementById('sinfoSubmit');
-
-const playlist_list = document.getElementById('playlist_list');
-
-// Need code to handle if no cookie stored for user
-dc = document.cookie;
-const start_idx = dc.indexOf('UserID')
-const end_idx = dc.substr(start_idx).indexOf(';');
-let user_id;
-if (end_idx === -1) {
-    user_id = parseInt(dc.substr(start_idx+7));
-}
-else {
-    user_id = parseInt(dc.substr(start_idx+7, end_idx));
-}
-
-async function get_playlist_ainformation(data) {
-    const response = await fetch('/requests/get_playlist_ainformation', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application.json'
-        },
-        body: JSON.stringify(data)
-    })
-    return response.json();
-}
-
+//Get Playlist Songs
 async function get_playlist_ptitleinformation(data) {
     const response = await fetch('/requests/get_playlist_ptitleinformation', {
         method: 'POST',
@@ -49,38 +10,8 @@ async function get_playlist_ptitleinformation(data) {
     return response.json();
 }
 
-async function get_playlist_pinformationMT(data) {
-    const response = await fetch('/requests/get_playlist_pinformationMT', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application.json'
-        },
-        body: JSON.stringify(data)
-    })
-    return response.json();
-}
-async function get_playlist_pinformationLT(data) {
-    const response = await fetch('/requests/get_playlist_pinformationLT', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application.json'
-        },
-        body: JSON.stringify(data)
-    })
-    return response.json();
-}
-async function get_playlist_pinformationET(data) {
-    const response = await fetch('/requests/get_playlist_pinformationET', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application.json'
-        },
-        body: JSON.stringify(data)
-    })
-    return response.json();
-}
-async function get_playlist_pinformationNA(data) {
-    const response = await fetch('/requests/get_playlist_pinformationNA', {
+async function get_playlists_songs(data) {
+    const response = await fetch('/requests/get_playlists_songs', {
         method: 'POST',
         headers: {
             'Content-Type': 'application.json'
@@ -90,8 +21,11 @@ async function get_playlist_pinformationNA(data) {
     return response.json();
 }
 
-async function get_playlist_sinformation(data) {
-    const response = await fetch('/requests/get_playlist_sinformation', {
+
+
+//Get all playlist
+async function get_all_playlist(data) {
+    const response = await fetch('/requests/get_all_playlist', {
         method: 'POST',
         headers: {
             'Content-Type': 'application.json'
@@ -101,98 +35,95 @@ async function get_playlist_sinformation(data) {
     return response.json();
 }
 
-anameSubmit.addEventListener('click', () => {
-    if (aname.value == "" || aname.length == 0 || aname == null){
-        alert("Artist Username must contain a value");
-    }
-    else{
-        get_playlist_ainformation({ArtistName: aname.value})
-        .then( (get_playlist_ainformation_response) => {
-            for (const playlist_info of get_playlist_ainformation_response.Ainformation) {
-                const li = document.createElement('li');
-        
-                const body = `Title: ${playlist_info.title} Date Created: ${playlist_info.date_created} Number of Songs: ${playlist_info.song_count}\t`
-                li.innerHTML = body;
-                playlist_list.appendChild(li);
-            }
-        });
-    }
-});
+const searchplaylist = document.getElementById('searchplaylist');
 
-ptitleSubmit.addEventListener('click', () => {
-    if (ptitle.value == "" || ptitle.length == 0 || ptitle == null){
-        alert("Playlist Title must contain a value");
-    }
-    else{
-        get_playlist_ptitleinformation({PlaylistName: ptitle.value})
-        .then( (get_playlist_ptitleinformation_response) => {
-            for (const playlist_info of get_playlist_ptitleinformation_response.Ptitleinformation) {
-                const li = document.createElement('li');
-        
-                const body = `Title: ${playlist_info.title} Date Created: ${playlist_info.date_created} Number of Songs: ${playlist_info.song_count}\t`
-                li.innerHTML = body;
-                playlist_list.appendChild(li);
-            }
-        });
-    }
-});
+get_all_playlist({ArtistName: "A"})
+.then( (get_all_playlist_response) => {
+    for(const server_information of get_all_playlist_response.Info){
+        const li = document.createElement('li');
+        li.tagName = "a"
+        li.innerHTML = server_information.title;
+        li.onclick = 
+        li.addEventListener('click', () => {
+        get_playlist_ptitleinformation({PlaylistName: li.innerHTML})
+                                .then( (get_playlist_ptitleinformation_response) => {
+                                            //Create a HTML Table element.
+                                var table = document.createElement("TABLE");
+                                table.border = "1";
 
-pinfoSubmit.addEventListener('click', () => {
-    if(nsongs.value == "" || nsongs.length == 0 || nsongs == null ){
-        alert("Number of Songs must contain a value");
-    }
-    else if(quantity.value == "More than"){
-        get_playlist_pinformationMT({NSongs: nsongs.value})
-        .then( (get_playlist_pinformationMT_response) => {
-            for (const playlist_info of get_playlist_pinformationMT_response.PinformationMT) {
-                const li = document.createElement('li');
-        
-                const body = `Title: ${playlist_info.title} Date Created: ${playlist_info.date_created} Number of Songs: ${playlist_info.song_count}\t`
-                li.innerHTML = body;
-                playlist_list.appendChild(li);
-            }
-        });
-    }
-    else if(quantity.value == "Less than"){
-        get_playlist_pinformationLT({NSongs: nsongs.value})
-        .then( (get_playlist_pinformationLT_response) => {
-            for (const playlist_info of get_playlist_pinformationLT_response.PinformationLT) {
-                const li = document.createElement('li');
-        
-                const body = `Title: ${playlist_info.title} Date Created: ${playlist_info.date_created} Number of Songs: ${playlist_info.song_count}\t`
-                li.innerHTML = body;
-                playlist_list.appendChild(li);
-            }
-        });
-    }
-    else if(quantity.value == "Equal to"){
-        get_playlist_pinformationET({NSongs: nsongs.value })
-        .then( (get_playlist_pinformationET_response) => {
-            for (const playlist_info of get_playlist_pinformationET_response.PinformationET) {
-                const li = document.createElement('li');
-        
-                const body = `Title: ${playlist_info.title} Date Created: ${playlist_info.date_created} Number of Songs: ${playlist_info.song_count}\t`
-                li.innerHTML = body;
-                playlist_list.appendChild(li);
-            }
-        });
-    }
-});
+                                var customers = new Array();
+                                customers.push(["Playlist Title", "Date Created", "Number of Songs"]);
 
-sinfoSubmit.addEventListener('click', () => {
-    if (stitle.value == "" || stitle.length == 0 || stitle == null){
-        alert("Song Title must contain a value");
-    }
-    else{
-        get_playlist_sinformation({SongTitle: stitle.value})
-        .then( (get_playlist_sinformation_response) => {
-            for (const playlist_info of get_playlist_sinformation_response.Sinformation) {
-                const li = document.createElement('li');
+                                //Add the header row.
+                                var row = table.insertRow(-1);
+                                for (var i = 0; i < 3; i++) {
+                                    var headerCell = document.createElement("TH");
+                                    headerCell.innerHTML = customers[0][i];
+                                    row.appendChild(headerCell);
+                                }
 
-                const body = `Title: ${playlist_info.title} Date Created: ${playlist_info.date_created} Number of Songs: ${playlist_info.song_count}\t`
-                li.innerHTML = body;
-                playlist_list.appendChild(li);
-            }
-        });
+                                //Add the data rows.
+                                for (const playlist_info of get_playlist_ptitleinformation_response.Ptitleinformation) {
+                                    row = table.insertRow(-1);
+                                    var cell = row.insertCell(-1);
+                                    cell.innerHTML = playlist_info.title;
+                                    cell = row.insertCell(-1);
+                                    cell.innerHTML = playlist_info.date_created;
+                                    cell = row.insertCell(-1);
+                                    cell.innerHTML = playlist_info.song_count;
+                                }
+
+                                playlist_list.innerHTML = "";
+                                playlist_list.appendChild(table);
+                                });
+
+
+        get_playlists_songs({Title: li.innerHTML}).then(get_playlist_songs_results => {
+                                    //Create a HTML Table element.
+                                    var table = document.createElement("TABLE");
+                                    table.border = "1";
+                            
+                                    var customers = new Array();
+                                    customers.push(["Song Title", "Rating"]);
+                            
+                                    //Add the header row.
+                                    var row = table.insertRow(-1);
+                                    for (var i = 0; i < 2; i++) {
+                                        var headerCell = document.createElement("TH");
+                                        headerCell.innerHTML = customers[0][i];
+                                        row.appendChild(headerCell);
+                                    }
+                            
+                                    //Add the data rows.
+                                    for (const song_playlist_info of get_playlist_songs_results.SongInformation) {
+                                        row = table.insertRow(-1);
+                                        var cell = row.insertCell(-1);
+                                        cell.innerHTML = song_playlist_info.title;
+                                        cell = row.insertCell(-1);
+                                        cell.innerHTML = song_playlist_info.rating;
+                                    }
+                            
+                                    song_playlist_list.innerHTML = "";
+                                    song_playlist_list.appendChild(table);
+                            
+                                });
+
+                            });
+        searchplaylist.appendChild(li);
     }
+    const myInput = document.getElementById('myInput');
+    //Filter by name
+    myInput.addEventListener('keyup', () => {
+    const filter = myInput.value.toUpperCase();
+    for (i = 1; i <= (searchplaylist.childNodes.length)-1; i++) {
+        var k = i;
+        var a = searchplaylist.childNodes[i].innerText;
+        var txtValue = a;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            searchplaylist.childNodes[i].style.display = "";
+        } else {
+            searchplaylist.childNodes[i].style.display = "none";
+        }
+      }
+    });
 });

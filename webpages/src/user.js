@@ -196,7 +196,7 @@ get_user_name({UserID: user_id})
 .then( (get_user_name_results) => {  
   for(const results_info of get_user_name_results.Un) { 
       const h3 = document.createElement("h3")
-      const body = `${results_info.Un}`
+      const body = `Welcome ${results_info.name}`
       h3.innerHTML = body;
       user_namess.appendChild(h3);
   }    
