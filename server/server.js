@@ -210,7 +210,7 @@ async function handle_posts_requests(request, response) {
                 buffers.push(chunk);
             }
             const delete_playlist_info = JSON.parse(buffers.toString());
-            const delete_playlist_query = `DELETE FROM PLAYLIST WHERE (title = "${delete_playlist_info.Title}" AND user_id = ${delete_playlist_info.UserID})`
+            const delete_playlist_query = `DELETE FROM PLAYLIST WHERE (id = ${delete_playlist_info.Id} AND user_id = ${delete_playlist_info.UserID})`
 
             connection.query(delete_playlist_query, (error, delete_playlist_results) => {
                 if (error) {
@@ -236,7 +236,7 @@ async function handle_posts_requests(request, response) {
                 buffers.push(chunk);
             }
             const output_playlist_info = JSON.parse(buffers.toString());
-            const output_playlist_query = `SELECT title FROM PLAYLIST WHERE (user_id = ${output_playlist_info.UserID})`
+            const output_playlist_query = `SELECT id, title FROM PLAYLIST WHERE (user_id = ${output_playlist_info.UserID})`
 
             connection.query(output_playlist_query, (error, output_playlist_results) => {
                 if (error) {
@@ -256,34 +256,6 @@ async function handle_posts_requests(request, response) {
         );
     }
 }
-else if (request.url.substr(0,26) === '/requests/get_all_playlist') {
-    if (request.url === '/requests/get_all_playlist') {
-        const buffers = [];
-        for await (const chunk of request) {
-            buffers.push(chunk);
-        }
-        const output_playlist_info = JSON.parse(buffers.toString());
-        const output_playlist_query = `SELECT title FROM PLAYLIST`
-
-        connection.query(output_playlist_query, (error, output_playlist_results) => {
-            if (error) {
-                console.log(error);
-                response.writeHead(500);
-                response.end();
-                throw error;
-            }
-            const rowsPlaylist = {Info: []}
-            for (const rowPlaylist of output_playlist_results) {
-                rowsPlaylist.Info.push(rowPlaylist);
-            }
-            response.writeHead(200);
-            response.write(JSON.stringify(rowsPlaylist));
-            response.end();          
-        }
-    );
-}
-}
-
 else if (request.url.substr(0,35) === '/requests/get_playlist_ainformation') {
     if (request.url === '/requests/get_playlist_ainformation') {
         const buffers = [];
@@ -441,7 +413,7 @@ else if (request.url.substr(0,23) === '/requests/get_user_name') {
             buffers.push(chunk);
         }
         const get_user_name_info = JSON.parse(buffers.toString());
-        const get_user_name_query = `SELECT name FROM USER WHERE( id = ${get_user_name_info.UserID})`
+        const get_user_name_query = `SELECT name FROM USER WHERE( id = "${get_user_name_info.UserID}")`
         connection.query(get_user_name_query, (error, get_user_name_results) => {
             if (error) {
                 console.log(error);
@@ -449,9 +421,9 @@ else if (request.url.substr(0,23) === '/requests/get_user_name') {
                 response.end();
                 throw error;
             }
-            const rows = {Un: []};
+            const rows = {get_user_name_information: []};
             for (const row of get_user_name_results) {
-                rows.Un.push(row);
+                rows.get_user_name_information.push(row);
             }
             response.writeHead(200);
             response.write(JSON.stringify(rows));
@@ -459,7 +431,6 @@ else if (request.url.substr(0,23) === '/requests/get_user_name') {
         });
     }
 }
-
 else if (request.url.substr(0,30) === '/requests/insert_song_playlist') {
     if (request.url === '/requests/insert_song_playlist') {
         const buffers = [];
@@ -467,36 +438,23 @@ else if (request.url.substr(0,30) === '/requests/insert_song_playlist') {
             buffers.push(chunk);
         }
         const insert_song_playlist_info = JSON.parse(buffers.toString());
-        //const insert_song_playlist_query = `INSERT INTO SONG_PLAYLIST (song_id, playlist_id) VALUE ( ${insert_song_playlist_info.SongID}, (SELECT id FROM PLAYLIST WHERE ( title = "${insert_song_playlist_info.Title}")))`
-        
-        connection.query(`SELECT id FROM PLAYLIST WHERE ( title = "${insert_song_playlist_info.Title}")`, (error, select_results) => {
+        const insert_song_playlist_query = `INSERT INTO SONG_PLAYLIST (playlist_id, song_id) VALUES ( ${insert_song_playlist_info.Id}, ${insert_song_playlist_info.SongID} )`
+
+        connection.query(insert_song_playlist_query, (error, create_playlist_results) => {
             if (error) {
                 console.log(error);
                 response.writeHead(500);
                 response.end();
                 throw error;
             }
-            const res = JSON.stringify(select_results);
-            const insert_song_playlist_query = `INSERT INTO SONG_PLAYLIST (song_id, playlist_id) VALUE ( ${insert_song_playlist_info.SongID}, ${select_results[0].id})`
+            
+            const createResponse = {Changed: create_playlist_results.affectedRows};
 
-            connection.query(insert_song_playlist_query, (error, create_playlist_results) => {
-                if (error) {
-                    console.log(error);
-                    response.writeHead(500);
-                    response.end();
-                    throw error;
-                }
-                
-                const createResponse = {Changed: create_playlist_results.affectedRows};
-    
-                response.writeHead(200);
-                response.write(JSON.stringify(createResponse));
-                response.end();          
-                }
-            );
-        });
-
-
+            response.writeHead(200);
+            response.write(JSON.stringify(createResponse));
+            response.end();          
+            }
+        );
     }
 }
 else if (request.url.substr(0,30) === '/requests/delete_song_playlist') {
@@ -506,7 +464,7 @@ else if (request.url.substr(0,30) === '/requests/delete_song_playlist') {
             buffers.push(chunk);
         }
         const insert_song_playlist_info = JSON.parse(buffers.toString());
-        const insert_song_playlist_query = `DELETE FROM SONG_PLAYLIST WHERE ( song_id = ${insert_song_playlist_info.SongID} AND playlist_id = (SELECT id FROM PLAYLIST WHERE(title = "${insert_song_playlist_info.Title}" AND user_id = ${insert_song_playlist_info.UserID})))`
+        const insert_song_playlist_query = `DELETE FROM SONG_PLAYLIST WHERE ( playlist_id = ${insert_song_playlist_info.Id} AND song_id = ${insert_song_playlist_info.SongID} )`
 
         connection.query(insert_song_playlist_query, (error, create_playlist_results) => {
             if (error) {
@@ -551,14 +509,14 @@ else if (request.url.substr(0,22) === '/requests/delete_songs') {
         );
     }
 }
-else if (request.url.substr(0,29) === '/requests/get_playlists_songs') {
-    if (request.url === '/requests/get_playlists_songs') {
+else if (request.url.substr(0,28) === '/requests/get_playlist_songs') {
+    if (request.url === '/requests/get_playlist_songs') {
         const buffers = [];
         for await (const chunk of request) {
             buffers.push(chunk);
         }
         const output_playlist_songs_info = JSON.parse(buffers.toString());
-        const output_playlist_songs_query = `SELECT title, rating, id FROM SONG WHERE (id IN (SELECT song_id FROM SONG_PLAYLIST WHERE (playlist_id = ( SELECT id FROM PLAYLIST WHERE (title = "${output_playlist_songs_info.Title}")))))`
+        const output_playlist_songs_query = `SELECT title FROM SONG WHERE (id = (SELECT song_id FROM SONG_PLAYLIST WHERE (playlist_id = ${output_playlist_songs_info.Id})))`
 
         connection.query(output_playlist_songs_query, (error, output_playlist_songs_results) => {
             if (error) {
@@ -567,40 +525,13 @@ else if (request.url.substr(0,29) === '/requests/get_playlists_songs') {
                 response.end();
                 throw error;
             }
-            const rows = {SongInformation: []};
-            for (const row of output_playlist_songs_results) {
-                rows.SongInformation.push(row);
+            const rowsPlaylistSongs = {Infor: []}
+            for (const rowPlaylistSongs of output_playlist_songs_results) {
+                rowsPlaylistSongs.Infor.push(rowPlaylistSongs);
             }
             response.writeHead(200);
-            response.write(JSON.stringify(rows));
-            response.end();
-        }
-    );
-    }
-}
-else if (request.url.substr(0,33) === '/requests/get_non_playlists_songs') {
-    if (request.url === '/requests/get_non_playlists_songs') {
-        const buffers = [];
-        for await (const chunk of request) {
-            buffers.push(chunk);
-        }
-        const output_playlist_songs_info = JSON.parse(buffers.toString());
-        const output_playlist_songs_query = `SELECT title, rating, id FROM SONG WHERE (id NOT IN (SELECT song_id FROM SONG_PLAYLIST WHERE (playlist_id = ( SELECT id FROM PLAYLIST WHERE (title = "${output_playlist_songs_info.Title}")))))`
-
-        connection.query(output_playlist_songs_query, (error, output_playlist_songs_results) => {
-            if (error) {
-                console.log(error);
-                response.writeHead(500);
-                response.end();
-                throw error;
-            }
-            const rows = {SongInformation: []};
-            for (const row of output_playlist_songs_results) {
-                rows.SongInformation.push(row);
-            }
-            response.writeHead(200);
-            response.write(JSON.stringify(rows));
-            response.end();
+            response.write(JSON.stringify(rowsPlaylistSongs));
+            response.end();          
         }
     );
     }
@@ -775,6 +706,38 @@ else if (request.url.substr(0,25) === '/requests/deletealbum') {
             }
         });
     }
+    else if (request.url === "/requests/update") {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const user_info = JSON.parse(buffers.toString());
+        const exists_query = `SELECT id FROM USER WHERE name="${user_info.Username}";`
+
+        connection.query(exists_query, (error, results) => {
+            if (error) {
+                console.log(error);
+                throw error;
+            }
+            if (Object.keys(results).length > 0) { // Username already exists
+                response.writeHead(409);
+                response.write(JSON.stringify({'Accepted': false}));
+                response.end();
+            } else {
+                const query = `UPDATE USER SET name="${user_info.Username}", password="${user_info.Password}" WHERE id=${user_info.Id};`;
+                connection.query(query, (error, results) => {
+                    if (error) {
+                        console.log(error);
+                        throw error;
+                    }
+
+                    response.writeHead(200);
+                    response.write(JSON.stringify({'Accepted': true, 'UserID': results.insertId}));
+                    response.end();
+                });
+            }
+        });
+    }
     else {
         const buffers = [];    
         for await (const chunk of request) {
@@ -808,18 +771,6 @@ async function server_handler(request, response) {
     }
     else if (request.url === '/reports' || request.url === '/reports/') {
         file_path = pages_path + '/html/reports.html'
-        content_type = 'text/html';
-    }
-    else if (request.url === '/playlist_report' || request.url === '/playlist_report/') {
-        file_path = pages_path + '/html/playlist_report.html'
-        content_type = 'text/html';
-    }
-    else if (request.url === '/albums' || request.url === '/albums/') {
-        file_path = pages_path + '/html/albums.html'
-        content_type = 'text/html';
-    }
-    else if (request.url === '/uploads' || request.url === '/uploads/') {
-        file_path = pages_path + '/html/uploads.html'
         content_type = 'text/html';
     }
     else if (request.url.substr(0,9) === '/requests') {

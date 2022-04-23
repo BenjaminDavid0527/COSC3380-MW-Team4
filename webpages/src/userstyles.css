@@ -135,7 +135,8 @@ body {
 }
 
 button.chatbtn,
-button.createbtn {
+button.createbtn,
+button.logoutbtn {
   border: 0;
   padding: 10px;
   width: 100%;
