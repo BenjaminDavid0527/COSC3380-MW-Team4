@@ -3,6 +3,7 @@ const fs = require('fs');
 const mysql = require('./node_modules/mysql');
 
 const { hostname, port, pages_path } = require('./src/contants');
+const { title } = require('process');
 
 //Create connection to our database
 const connection = mysql.createConnection({
@@ -536,14 +537,14 @@ else if (request.url.substr(0,28) === '/requests/get_playlist_songs') {
     );
     }
 }
-else if (request.url.substr(0,15) === '/requests/albums') {
+else if (request.url.substr(0,16) === '/requests/albums') {
     if (request.url === '/requests/albums') {
         const buffers = [];
         for await (const chunk of request) {
             buffers.push(chunk);
         }
         const output_album_info = JSON.parse(buffers.toString());
-        const output_album_query = `SELECT id, title FROM ALBUM WHERE (user_id = ${output_album_info.UserID})`
+        const output_album_query = `SELECT title FROM ALBUM WHERE (user_id = ${output_album_info.UserID})`
 
         connection.query(output_album_query, (error, output_album_results) => {
             if (error) {
@@ -563,14 +564,70 @@ else if (request.url.substr(0,15) === '/requests/albums') {
     );
 }
 }
-else if (request.url.substr(0,24) === '/requests/get_album_songs') {
+
+else if (request.url.substr(0,24) === '/requests/get_all_albums') {
+    if (request.url === '/requests/get_all_albums') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const output_album_info = JSON.parse(buffers.toString());
+        const output_album_query = `SELECT title FROM ALBUM`
+
+        connection.query(output_album_query, (error, output_album_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            const rowsAlbums = {Info: []}
+            for (const rowAlbums of output_album_results) {
+                rowsAlbums.Info.push(rowAlbums);
+            }
+            response.writeHead(200);
+            response.write(JSON.stringify(rowsAlbums));
+            response.end();          
+        }
+    );
+}
+}
+
+else if (request.url.substr(0,37) === '/requests/get_album_ptitleinformation') {
+    if (request.url === '/requests/get_album_ptitleinformation') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const output_album_info = JSON.parse(buffers.toString());
+        const output_album_query = `SELECT title, song_count FROM ALBUM WHERE (title = "${output_album_info.AlbumName}")`
+
+        connection.query(output_album_query, (error, output_album_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            const rowsAlbums = {Info: []}
+            for (const rowAlbums of output_album_results) {
+                rowsAlbums.Info.push(rowAlbums);
+            }
+            response.writeHead(200);
+            response.write(JSON.stringify(rowsAlbums));
+            response.end();          
+        }
+    );
+}
+}
+else if (request.url.substr(0,25) === '/requests/get_album_songs') {
     if (request.url === '/requests/get_album_songs') {
         const buffers = [];
         for await (const chunk of request) {
             buffers.push(chunk);
         }
         const output_song_info = JSON.parse(buffers.toString());
-        const output_song_query = `SELECT id, title FROM SONG WHERE (ALBUM.id = ${output_song_info.album_id})`
+        const output_song_query = `SELECT title, rating FROM SONG WHERE (album_id IN (SELECT id FROM ALBUM WHERE(title = "${output_song_info.Title}")))`
 
         connection.query(output_song_query, (error, output_song_results) => {
             if (error) {
@@ -590,6 +647,7 @@ else if (request.url.substr(0,24) === '/requests/get_album_songs') {
     );
 }
 }
+
 else if (request.url.substr(0,25) === '/requests/createalbum') {
     if (request.url === '/requests/createalbum') {
         const buffers = [];
@@ -616,8 +674,8 @@ else if (request.url.substr(0,25) === '/requests/createalbum') {
         );
     }
 }
-else if (request.url.substr(0,25) === '/requests/deletealbum') {
-    if (request.url === '/requests/deletealbum') {
+else if (request.url.substr(0,25) === '/requests/delete_album') {
+    if (request.url === '/requests/delete_album') {
         const buffers = [];
         for await (const chunk of request) {
             buffers.push(chunk);
@@ -769,8 +827,16 @@ async function server_handler(request, response) {
         file_path = pages_path + '/html/playlist.html'
         content_type = 'text/html';
     }
+    else if (request.url === '/playlist_report' || request.url === '/playlist_report/') {
+        file_path = pages_path + '/html/playlist_report.html'
+        content_type = 'text/html';
+    }
     else if (request.url === '/reports' || request.url === '/reports/') {
         file_path = pages_path + '/html/reports.html'
+        content_type = 'text/html';
+    }
+    else if (request.url === '/albums' || request.url === '/albums/') {
+        file_path = pages_path + '/html/albums.html'
         content_type = 'text/html';
     }
     else if (request.url.substr(0,9) === '/requests') {
