@@ -336,7 +336,7 @@ async function handle_posts_requests(request, response) {
                 buffers.push(chunk);
             }
             const delete_playlist_info = JSON.parse(buffers.toString());
-            const delete_playlist_query = `DELETE FROM PLAYLIST WHERE (id = ${delete_playlist_info.Id} AND user_id = ${delete_playlist_info.UserID})`
+            const delete_playlist_query = `DELETE FROM PLAYLIST WHERE (title = "${delete_playlist_info.Title}" AND user_id = ${delete_playlist_info.UserID})`
 
             connection.query(delete_playlist_query, (error, delete_playlist_results) => {
                 if (error) {
@@ -684,7 +684,7 @@ else if (request.url.substr(0,30) === '/requests/delete_song_playlist') {
             buffers.push(chunk);
         }
         const insert_song_playlist_info = JSON.parse(buffers.toString());
-        const insert_song_playlist_query = `DELETE FROM SONG_PLAYLIST WHERE ( playlist_id = ${insert_song_playlist_info.Id} AND song_id = ${insert_song_playlist_info.SongID} )`
+        const insert_song_playlist_query = `DELETE FROM SONG_PLAYLIST WHERE ( song_id = ${insert_song_playlist_info.SongID} AND playlist_id = (SELECT id FROM PLAYLIST WHERE(title = "${insert_song_playlist_info.Title}" AND user_id = ${insert_song_playlist_info.UserID})))`
 
         connection.query(insert_song_playlist_query, (error, create_playlist_results) => {
             if (error) {
