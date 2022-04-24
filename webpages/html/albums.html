@@ -2,12 +2,13 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title> List of Songs </title>
-        <link rel="stylesheet" href="/webpages/src/userstyles.css"> <!-- Will need to change this -->
+        <title> Albums </title>
+        <link rel="stylesheet" href="/webpages/src/playliststyles.css"> <!-- Will need to change this -->
         <meta name="viewport" content="width=device.width, initial-scale=1.0">
     </head>
 
     <body>
+        <div class="mtext">Search Albums By Title: </div> <br>
         <div class="topnav" id="topNavBar">
             <a href="user" class="active">Home</a>
             <a href="uploads">Upload</a>
@@ -15,15 +16,21 @@
             <a href="albums">Albums</a>
             <a href="playlists"> Playlists</a>
             <a href="reports">Reports</a>
-          </div>
-        <div class="wrapper">
-            <div class="title-text">
-                <div class="title songs">Albums</div>
-            </div>
         </div>
-        <ol id="album_list">
 
-        </ol>
-        <script src="/webpages/src/albums.js"> </script>
-    </body>
-</html>
+        <input type="text" id="myInput" placeholder="Search for names..">
+
+        <ul id="searchalbum">
+
+        </ul>
+        <div class="mtext">Album Information: </div>
+        <div id="album_list"></div>
+
+        <div class="mtext">Album Songs: </div>
+        <div id="song_album_list"></div>
+
+        <script src="/webpages/src/album.js"> </script>
+    </body> 
+</html> 
+
+
