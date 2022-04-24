@@ -3,6 +3,15 @@ if ( document.cookie.indexOf('UserID') == -1){
   window.location.href = "/";
 }
 
+function deleteCookie(name) {
+  document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+const handle_logout = (event) => {
+  deleteCookie("UserID");
+  window.location.href = "/";
+}
+
 //navigate between tabs
 const tabLinks = document.querySelectorAll(".tabs a");
 const tabPanels = document.querySelectorAll(".tabs-panel");
@@ -156,14 +165,6 @@ uploadButton.addEventListener("click", e => {
 
 
 //logout information 
-function deleteCookie(name) {
-    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-}
-
-const handle_logout = (event) => {
-    deleteCookie("UserID");
-    window.location.href = "/";
-}
 
 
 const updateButton = document.getElementById("update-btn");

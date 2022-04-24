@@ -1064,7 +1064,7 @@ else if (request.url.substr(0,25) === '/requests/delete_album') {
             }
         });
     }
-    else if (request.url === "/requests/signup") {
+    else if (request.url.substr(0, 16) === "/requests/signup") {
         const buffers = [];
         for await (const chunk of request) {
             buffers.push(chunk);
@@ -1095,7 +1095,7 @@ else if (request.url.substr(0,25) === '/requests/delete_album') {
             }
         });
     }
-    else if (request.url === "/requests/update") {
+    else if (request.url.substr(0, 21) === "/requests/update-user") {
         const buffers = [];
         for await (const chunk of request) {
             buffers.push(chunk);
@@ -1113,7 +1113,7 @@ else if (request.url.substr(0,25) === '/requests/delete_album') {
                 response.write(JSON.stringify({'Accepted': false}));
                 response.end();
             } else {
-                const query = `UPDATE USER SET name="${user_info.Username}", password="${user_info.Password}" WHERE id=${user_info.Id};`;
+                const query = `UPDATE USER SET name="${user_info.Username}" WHERE id=${user_info.Id};`;
                 connection.query(query, (error, results) => {
                     if (error) {
                         console.log(error);
@@ -1125,6 +1125,25 @@ else if (request.url.substr(0,25) === '/requests/delete_album') {
                     response.end();
                 });
             }
+        });
+    }
+    else if (request.url.substr(0, 25) === "/requests/update-password") {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const user_info = JSON.parse(buffers.toString());
+
+        const query = `UPDATE USER SET password="${user_info.Password}" WHERE id=${user_info.Id};`;
+        connection.query(query, (error, results) => {
+            if (error) {
+                console.log(error);
+                throw error;
+            }
+
+            response.writeHead(200);
+            response.write(JSON.stringify({'Accepted': true, 'UserID': results.insertId}));
+            response.end();
         });
     }
     else {
