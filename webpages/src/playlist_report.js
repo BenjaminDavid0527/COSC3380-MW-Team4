@@ -1,5 +1,9 @@
 const body = document.querySelector('body');
 
+const titlecheckbox = document.getElementById('titlecheckbox');
+const datecreatedcheckbox = document.getElementById('datecreatedcheckbox');
+const numberofsongscheckbox = document.getElementById('numberofsongscheckbox');
+
 const aname = document.getElementById('aname');
 const anameSubmit = document.getElementById('anameSubmit');
 
@@ -115,25 +119,45 @@ anameSubmit.addEventListener('click', () => {
         table.border = "1";
 
         var customers = new Array();
-        customers.push(["Playlist Title", "Date Created", "Number of Songs"]);
+        var countCustomers = 0;
+
+        if(titlecheckbox.checked){
+            customers.push(["Title"]);
+            countCustomers++;
+        }
+        if(datecreatedcheckbox.checked){
+            customers.push(["Date Created"]);
+            countCustomers++;
+        }
+        if(numberofsongscheckbox.checked){
+            customers.push(["Number of Songs"]);
+            countCustomers++;
+        }
 
         //Add the header row.
         var row = table.insertRow(-1);
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < countCustomers; i++) {
             var headerCell = document.createElement("TH");
-            headerCell.innerHTML = customers[0][i];
+            headerCell.innerHTML = customers[i];
             row.appendChild(headerCell);
         }
  
         //Add the data rows.
         for (const playlist_info of get_playlist_ainformation_response.Ainformation) {
             row = table.insertRow(-1);
-            var cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.title;
-            cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.date_created;
-            cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.song_count;
+
+            if(titlecheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.title;
+            }
+            if(datecreatedcheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.date_created;
+            }
+            if(numberofsongscheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.song_count;
+            }
         }
  
         playlist_list.innerHTML = "";
@@ -154,25 +178,44 @@ ptitleSubmit.addEventListener('click', () => {
         table.border = "1";
 
         var customers = new Array();
-        customers.push(["Playlist Title", "Date Created", "Number of Songs"]);
+        var countCustomers = 0;
+
+        if(titlecheckbox.checked){
+            customers.push(["Title"]);
+            countCustomers++;
+        }
+        if(datecreatedcheckbox.checked){
+            customers.push(["Date Created"]);
+            countCustomers++;
+        }
+        if(numberofsongscheckbox.checked){
+            customers.push(["Number of Songs"]);
+            countCustomers++;
+        }
 
         //Add the header row.
         var row = table.insertRow(-1);
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < countCustomers; i++) {
             var headerCell = document.createElement("TH");
-            headerCell.innerHTML = customers[0][i];
+            headerCell.innerHTML = customers[i];
             row.appendChild(headerCell);
         }
  
         //Add the data rows.
         for (const playlist_info of get_playlist_ptitleinformation_response.Ptitleinformation) {
             row = table.insertRow(-1);
-            var cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.title;
-            cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.date_created;
-            cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.song_count;
+            if(titlecheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.title;
+            }
+            if(datecreatedcheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.date_created;
+            }
+            if(numberofsongscheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.song_count;
+            }
         }
  
         playlist_list.innerHTML = "";
@@ -193,25 +236,44 @@ pinfoSubmit.addEventListener('click', () => {
         table.border = "1";
 
         var customers = new Array();
-        customers.push(["Playlist Title", "Date Created", "Number of Songs"]);
+        var countCustomers = 0;
+
+        if(titlecheckbox.checked){
+            customers.push(["Title"]);
+            countCustomers++;
+        }
+        if(datecreatedcheckbox.checked){
+            customers.push(["Date Created"]);
+            countCustomers++;
+        }
+        if(numberofsongscheckbox.checked){
+            customers.push(["Number of Songs"]);
+            countCustomers++;
+        }
 
         //Add the header row.
         var row = table.insertRow(-1);
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < countCustomers; i++) {
             var headerCell = document.createElement("TH");
-            headerCell.innerHTML = customers[0][i];
+            headerCell.innerHTML = customers[i];
             row.appendChild(headerCell);
         }
  
         //Add the data rows.
         for (const playlist_info of get_playlist_pinformationMT_response.PinformationMT) {
             row = table.insertRow(-1);
-            var cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.title;
-            cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.date_created;
-            cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.song_count;
+            if(titlecheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.title;
+            }
+            if(datecreatedcheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.date_created;
+            }
+            if(numberofsongscheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.song_count;
+            }
         }
  
         playlist_list.innerHTML = "";
@@ -226,25 +288,44 @@ pinfoSubmit.addEventListener('click', () => {
         table.border = "1";
 
         var customers = new Array();
-        customers.push(["Playlist Title", "Date Created", "Number of Songs"]);
+        var countCustomers = 0;
+
+        if(titlecheckbox.checked){
+            customers.push(["Title"]);
+            countCustomers++;
+        }
+        if(datecreatedcheckbox.checked){
+            customers.push(["Date Created"]);
+            countCustomers++;
+        }
+        if(numberofsongscheckbox.checked){
+            customers.push(["Number of Songs"]);
+            countCustomers++;
+        }
 
         //Add the header row.
         var row = table.insertRow(-1);
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < countCustomers; i++) {
             var headerCell = document.createElement("TH");
-            headerCell.innerHTML = customers[0][i];
+            headerCell.innerHTML = customers[i];
             row.appendChild(headerCell);
         }
  
         //Add the data rows.
         for (const playlist_info of get_playlist_pinformationLT_response.PinformationLT) {
             row = table.insertRow(-1);
-            var cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.title;
-            cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.date_created;
-            cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.song_count;
+            if(titlecheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.title;
+            }
+            if(datecreatedcheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.date_created;
+            }
+            if(numberofsongscheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.song_count;
+            }
         }
  
         playlist_list.innerHTML = "";
@@ -259,25 +340,44 @@ pinfoSubmit.addEventListener('click', () => {
         table.border = "1";
 
         var customers = new Array();
-        customers.push(["Playlist Title", "Date Created", "Number of Songs"]);
+        var countCustomers = 0;
+
+        if(titlecheckbox.checked){
+            customers.push(["Title"]);
+            countCustomers++;
+        }
+        if(datecreatedcheckbox.checked){
+            customers.push(["Date Created"]);
+            countCustomers++;
+        }
+        if(numberofsongscheckbox.checked){
+            customers.push(["Number of Songs"]);
+            countCustomers++;
+        }
 
         //Add the header row.
         var row = table.insertRow(-1);
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < countCustomers; i++) {
             var headerCell = document.createElement("TH");
-            headerCell.innerHTML = customers[0][i];
+            headerCell.innerHTML = customers[i];
             row.appendChild(headerCell);
         }
  
         //Add the data rows.
         for (const playlist_info of get_playlist_pinformationET_response.PinformationET) {
             row = table.insertRow(-1);
-            var cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.title;
-            cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.date_created;
-            cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.song_count;
+            if(titlecheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.title;
+            }
+            if(datecreatedcheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.date_created;
+            }
+            if(numberofsongscheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.song_count;
+            }
         }
  
         playlist_list.innerHTML = "";
@@ -298,25 +398,44 @@ sinfoSubmit.addEventListener('click', () => {
         table.border = "1";
 
         var customers = new Array();
-        customers.push(["Playlist Title", "Date Created", "Number of Songs"]);
+        var countCustomers = 0;
+
+        if(titlecheckbox.checked){
+            customers.push(["Title"]);
+            countCustomers++;
+        }
+        if(datecreatedcheckbox.checked){
+            customers.push(["Date Created"]);
+            countCustomers++;
+        }
+        if(numberofsongscheckbox.checked){
+            customers.push(["Number of Songs"]);
+            countCustomers++;
+        }
 
         //Add the header row.
         var row = table.insertRow(-1);
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < countCustomers; i++) {
             var headerCell = document.createElement("TH");
-            headerCell.innerHTML = customers[0][i];
+            headerCell.innerHTML = customers[i];
             row.appendChild(headerCell);
         }
  
         //Add the data rows.
         for (const playlist_info of get_playlist_sinformation_response.Sinformation) {
             row = table.insertRow(-1);
-            var cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.title;
-            cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.date_created;
-            cell = row.insertCell(-1);
-            cell.innerHTML = playlist_info.song_count;
+            if(titlecheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.title;
+            }
+            if(datecreatedcheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.date_created;
+            }
+            if(numberofsongscheckbox.checked){
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.song_count;
+            }
         }
  
         playlist_list.innerHTML = "";
