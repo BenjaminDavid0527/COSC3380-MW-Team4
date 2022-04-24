@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title> Album Report </title>
+        <link rel="stylesheet" href="/webpages/src/album_reportstyles.css"> <!-- Will need to change this -->
+        <meta name="viewport" content="width=device.width, initial-scale=1.0">
+    </head>
+
+    <body>
+        <div class="topnav" id="topNavBar">
+            <a href="user" class="active">Home</a>
+            <a href="reports">Back to Reports</a>
+        </div>
+
+        <div class="mtext">Please Select Information to Display</div> <br>
+
+        <input type="checkbox" id="titlecheckbox" name="titlecheckbox" value="Title">
+        <label class="mtext" for="titlecheckbox">Title </label>
+
+        <!--<input type="checkbox" id="artistcheckbox" name="artistcheckbox" value="Artist">
+        <label class="mtext" for="artistcheckbox">Artist </label>-->
+
+        <!--<input type="checkbox" id="lengthcheckbox" name="lengthcheckbox" value="Length(Seconds)">
+        <label class="mtext" for="lengthcheckbox">Length(Seconds) </label>-->
+
+        <input type="checkbox" id="uploaddatecheckbox" name="uploaddatecheckbox" value="Upload Date">
+        <label class="mtext" for="uploaddatecheckbox">Creation Date </label>
+
+        <!--<input type="checkbox" id="sizecheckbox" name="sizecheckbox" value="Size">
+        <label class="mtext" for="sizecheckbox">Size </label>-->
+
+        <input type="checkbox" id="ratingcheckbox" name="ratingcheckbox" value="Rating">
+        <label class="mtext" for="ratingcheckbox">Number of Songs </label>
+        
+
+        <div class="mtext">Show Songs Reports By: </div> <br>
+
+        <div class="mtext">Artist Information: </div>
+
+        <form>
+            <label for="title songs" class="mtext">Artist Username:</label> 
+            <input type="text" id="aname" class="input" placeholder="Artist Username"><br>
+            <button type="button" id = "anameSubmit">Show Report</button><br><br>
+        </form>
+
+        <div class="mtext">Album Information: </div>
+
+        <form>
+            <label for="title songs" class="mtext">Title:</label>
+            <input type="text" id="ptitle" class="input" placeholder="Album Title"><br>
+            <button type="button" id = "ptitleSubmit">Show Report</button><br><br>
+        </form>
+
+        <form>
+            <label for="Number of Songs" class="mtext">  Number of Songs:</label>
+            <select id="quantity">
+                <option value="More than">More than</option>
+                <option value="Less than">Less than</option>
+                <option value="Equal to">Equal to</option>
+            </select>
+            <input type="number" id="nsongs" class="input" placeholder="Number of Songs"><br>
+            <button type="button" id = "pinfoSubmit">Show Report</button><br><br>
+        </form>
+
+        <hr />
+        <div id="playlist_list"></div>
+
+        <script src="/webpages/src/album_report.js"> </script>
+
+        <style>
+            body {
+            background-image: url(webpages/src/data/shutterstock_138386987.jpg);
+            background-repeat: none;
+            background-size: 100%, 100%;
+            }
+        </style>
+    </body>
+</html>
