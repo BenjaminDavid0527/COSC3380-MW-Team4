@@ -103,7 +103,7 @@ get_all_albums({ArtistName: "A"})
                                 .then( (get_album_ptitleinformation_response) => {
                                             //Create a HTML Table element.
                                 var table = document.createElement("TABLE");
-                                table.border = "1";
+                                table.border = "0.5";
 
                                 var customers = new Array();
                                 customers.push(["Album Title", "Number of Songs"]);
@@ -131,7 +131,7 @@ get_all_albums({ArtistName: "A"})
                 get_albumsongs({Title: li.innerHTML}).then(get_albumsongs_results => { 
                                     //Create a HTML Table element.
                                     var table = document.createElement("TABLE");
-                                    table.border = "1";
+                                    table.border = "0.5";
                             
                                     var customers = new Array();
                                     customers.push(["Song Title", "Rating"]);

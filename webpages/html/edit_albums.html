@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title> Edit Albums </title>
+        <link rel="stylesheet" href="/webpages/src/playliststyles.css"> <!-- Will need to change this -->
+        <meta name="viewport" content="width=device.width, initial-scale=1.0">
+    </head>
+
+    <body>
+        <div class="topnav" id="topNavBar">
+            <a href="user" class="active">Home</a>
+            <a href="albums">Back to Albums</a>
+        </div>
+
+        <form>
+            <label for="New Album Name" class="mtext">New Album Name: &ensp;</label>
+            <input type="text" id="albumname" class="input" placeholder="New Album Name">&ensp;
+            <button type="button" id = "albumSubmit">Submit</button><br><br>
+        </form>
+
+        <div class="mtext">Choose an album to edit: </div>
+        <form>
+            <select id="choosealbum">
+                <option disabled selected value> -- select an album -- </option>
+            </select><br><br>
+        </form>
+
+        <hr />
+
+        <form>
+            <label for="text" class="mtext">Album Songs</label>
+        </form>
+
+        <div id="song_album_list"></div>
+
+        <button type="button" id = "deleteAlbumButton">Delete Album</button><br><br>
+
+        <hr />
+
+        <form>
+            <label for="text" class="mtext">Songs</label>
+        </form>
+
+        <div id="non_song_album_list"></div>
+        
+
+
+
+        <script src="/webpages/src/edit_albums.js"> </script>
+
+    </body>
+</html>
