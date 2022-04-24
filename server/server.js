@@ -112,6 +112,131 @@ async function handle_posts_requests(request, response) {
             });
         }
     }
+    else if (request.url.substr(0,31) === '/requests/get_song_ainformation') {
+        if (request.url === '/requests/get_song_ainformation') {
+            const buffers = [];
+            for await (const chunk of request) {
+                buffers.push(chunk);
+            }
+            const songainformation = JSON.parse(buffers.toString());
+            const songainformation_query = `SELECT title, length_seconds, uploaded, size, rating FROM SONG WHERE(user_id = (SELECT id FROM USER WHERE name = "${songainformation.ArtistName}"))`
+            connection.query(songainformation_query, (error, songainformation_results) => {
+                if (error) {
+                    console.log(error);
+                    response.writeHead(500);
+                    response.end();
+                    throw error;
+                }
+                const rows = {SongAinformation: []};
+                for (const row of songainformation_results) {
+                    rows.SongAinformation.push(row);
+                }
+                response.writeHead(200);
+                response.write(JSON.stringify(rows));
+                response.end();
+            });
+        }
+    }
+    else if (request.url.substr(0,36) === '/requests/get_song_stitleinformation') {
+        if (request.url === '/requests/get_song_stitleinformation') {
+            const buffers = [];
+            for await (const chunk of request) {
+                buffers.push(chunk);
+            }
+            const songtitleinformation = JSON.parse(buffers.toString());
+            const songtitleinformation_query = `SELECT title, length_seconds, uploaded, size, rating FROM SONG WHERE(title = "${songtitleinformation.SongName}")`
+            connection.query(songtitleinformation_query, (error, songtitleinformation_results) => {
+                if (error) {
+                    console.log(error);
+                    response.writeHead(500);
+                    response.end();
+                    throw error;
+                }
+                const rows = {SongTitleinformation: []};
+                for (const row of songtitleinformation_results) {
+                    rows.SongTitleinformation.push(row);
+                }
+                response.writeHead(200);
+                response.write(JSON.stringify(rows));
+                response.end();
+            });
+        }
+    }
+    else if (request.url.substr(0,33) === '/requests/get_song_pinformationMT') {
+        if (request.url === '/requests/get_song_pinformationMT') {
+            const buffers = [];
+            for await (const chunk of request) {
+                buffers.push(chunk);
+            }
+            const songtitleinformationMT = JSON.parse(buffers.toString());
+            const songtitleinformationMT_query = `SELECT title, length_seconds, uploaded, size, rating FROM SONG WHERE(rating > ${songtitleinformationMT.Rating})`
+            connection.query(songtitleinformationMT_query, (error, songtitleinformationMT_results) => {
+                if (error) {
+                    console.log(error);
+                    response.writeHead(500);
+                    response.end();
+                    throw error;
+                }
+                const rows = {SongTitleinformationMT: []};
+                for (const row of songtitleinformationMT_results) {
+                    rows.SongTitleinformationMT.push(row);
+                }
+                response.writeHead(200);
+                response.write(JSON.stringify(rows));
+                response.end();
+            });
+        }
+    }
+    else if (request.url.substr(0,33) === '/requests/get_song_pinformationLT') {
+        if (request.url === '/requests/get_song_pinformationLT') {
+            const buffers = [];
+            for await (const chunk of request) {
+                buffers.push(chunk);
+            }
+            const songtitleinformationLT = JSON.parse(buffers.toString());
+            const songtitleinformationLT_query = `SELECT title, length_seconds, uploaded, size, rating FROM SONG WHERE(rating < ${songtitleinformationLT.Rating})`
+            connection.query(songtitleinformationLT_query, (error, songtitleinformationLT_results) => {
+                if (error) {
+                    console.log(error);
+                    response.writeHead(500);
+                    response.end();
+                    throw error;
+                }
+                const rows = {SongTitleinformationLT: []};
+                for (const row of songtitleinformationLT_results) {
+                    rows.SongTitleinformationLT.push(row);
+                }
+                response.writeHead(200);
+                response.write(JSON.stringify(rows));
+                response.end();
+            });
+        }
+    }
+    else if (request.url.substr(0,33) === '/requests/get_song_pinformationET') {
+        if (request.url === '/requests/get_song_pinformationET') {
+            const buffers = [];
+            for await (const chunk of request) {
+                buffers.push(chunk);
+            }
+            const songtitleinformationET = JSON.parse(buffers.toString());
+            const songtitleinformationET_query = `SELECT title, length_seconds, uploaded, size, rating FROM SONG WHERE(rating = ${songtitleinformationET.Rating})`
+            connection.query(songtitleinformationET_query, (error, songtitleinformationET_results) => {
+                if (error) {
+                    console.log(error);
+                    response.writeHead(500);
+                    response.end();
+                    throw error;
+                }
+                const rows = {SongTitleinformationET: []};
+                for (const row of songtitleinformationET_results) {
+                    rows.SongTitleinformationET.push(row);
+                }
+                response.writeHead(200);
+                response.write(JSON.stringify(rows));
+                response.end();
+            });
+        }
+    }
     else if (request.url.substr(0,20) === '/requests/user_songs') {
         if (request.url === '/requests/user_songs') {
             const buffers = [];
@@ -827,6 +952,12 @@ async function server_handler(request, response) {
         file_path = pages_path + '/html/playlist.html'
         content_type = 'text/html';
     }
+
+    else if (request.url === '/song_report' || request.url === '/song_report/') {
+        file_path = pages_path + '/html/song_report.html'
+        content_type = 'text/html';
+    }
+
     else if (request.url === '/playlist_report' || request.url === '/playlist_report/') {
         file_path = pages_path + '/html/playlist_report.html'
         content_type = 'text/html';
