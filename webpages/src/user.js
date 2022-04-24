@@ -1,3 +1,7 @@
+//check if the cookie is existed
+if ( document.cookie.indexOf('UserID') == -1){
+  window.location.href = "/";
+}
 
 //navigate between tabs
 const tabLinks = document.querySelectorAll(".tabs a");
@@ -6,7 +10,6 @@ const tabPanels = document.querySelectorAll(".tabs-panel");
 for (let el of tabLinks) {
   el.addEventListener("click", e => {
     e.preventDefault();
-
     document.querySelector(".tabs li.active").classList.remove("active");
     document.querySelector(".tabs-panel.active").classList.remove("active");
 
@@ -196,8 +199,13 @@ get_user_name({UserID: user_id})
 .then( (get_user_name_results) => {  
   for(const results_info of get_user_name_results.Un) { 
       const h3 = document.createElement("h3")
-      const body = `Welcome ${results_info.name}`
+      const body = `${results_info.Un}`
       h3.innerHTML = body;
       user_namess.appendChild(h3);
   }    
 });
+
+// if ( document.cookie.indexOf('UserID') == -1){
+//   alert("Please sigin to see the user page");   
+//   window.location.href = "/";
+//   }

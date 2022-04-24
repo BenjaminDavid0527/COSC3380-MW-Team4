@@ -20,6 +20,7 @@
         <a href="playlist"> Playlists</a>
         <a href="reports">Reports</a>
         <a id="idtopbar" href="#">Settings</a>
+        
         <a id = "uploadtopbar" href="#"></a>
 
 
@@ -49,9 +50,8 @@
                             <button class="chatbtn">
                                 <i class="fa fa-pencil"></i> Edit Profile
                             </button>
-                            <button class="createbtn">
-                                <i class="fa fa-plus"></i> Upload
-                            </button>
+                            <a id = "" href="#"></a>
+                            <button class="logoutbtn" id="logoutbtn" onclick="return handle_logout(event);">Log Out</button>
                         </div>
                     </div>
                 </div>
@@ -144,14 +144,16 @@
 
                               <div class="tabs-panel" data-index="2">
                                <div class="profile tabShow">
+                                <form action="#" onsubmit="return handle_update(event)" method="post">
                                  <h1>Personal Info</h1>
                                  <h2>Username</h2>
-                                 <input id="usern" type="text" class="input" placeholder="username">
+                                 <input id="usern" type="text" class="input" placeholder="username" name="uname" required>
+                                 <input type="submit" class="btn" id="userupdate-btn" value="Update">
                                  <h2>Password</h2>
-                                 <input type="password" class="input" minlength="8" maxlength="20">
-                                 <button class="btn" id="update-btn">Update</button>
-                                 <a id = "" href="#"></a>
-                                 <button class="btn" id="logoutbtn" onclick="return handle_logout(event)">Log Out</button>
+                                 <input id="pwd" type="password" class="input" minlength="8" maxlength="20" name="pwd" required>
+                                 <input type="submit" class="btn" id="passupdate-btn" value="Update">
+                                </form>
+                                </div>
                               </div>
                             </div>
                         </div>
@@ -192,6 +194,8 @@
         
         <script src="webpages/src/cspd-player.js"></script>
         <script src="webpages/src/user.js"></script>
+        <script src="webpages/src/user_settings.js"></script>
+
         <style>
           body {
             background-image: url(webpages/src/data/shutterstock_345129686.jpg);
@@ -200,6 +204,7 @@
 
           }
           </style>
+          
     </body>
     
     </html>

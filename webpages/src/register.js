@@ -104,3 +104,9 @@ const handle_login = (event) => {
     })
     return false;
 }
+
+// if ( document.cookie.indexOf('UserID') == -1){
+//   alert("Please sigin to see the user page");   
+//   window.location.href = "/";
+//   }
+
