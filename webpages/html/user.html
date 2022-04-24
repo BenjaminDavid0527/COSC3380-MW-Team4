@@ -50,10 +50,6 @@
                             <button class="chatbtn">
                                 <i class="fa fa-pencil"></i> Edit Profile
                             </button>
-                            <button class="createbtn">
-                                <i class="fa fa-plus"></i> Upload
-                            </button>
-                            
                             <a id = "" href="#"></a>
                             <button class="logoutbtn" id="logoutbtn" onclick="return handle_logout(event);">Log Out</button>
                         </div>
@@ -152,9 +148,10 @@
                                  <h1>Personal Info</h1>
                                  <h2>Username</h2>
                                  <input id="usern" type="text" class="input" placeholder="username" name="uname" required>
+                                 <input type="submit" class="btn" id="userupdate-btn" value="Update">
                                  <h2>Password</h2>
                                  <input id="pwd" type="password" class="input" minlength="8" maxlength="20" name="pwd" required>
-                                 <input type="submit" class="btn" id="update-btn" value="Update">
+                                 <input type="submit" class="btn" id="passupdate-btn" value="Update">
                                 </form>
                                 </div>
                               </div>
