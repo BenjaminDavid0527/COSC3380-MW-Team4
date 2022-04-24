@@ -114,9 +114,8 @@ npSubmit.addEventListener('click', () => {
     }
     else{
         create_playlist({UserID: user_id, Title: npname.value}).then(create_playlist_results => {
-            alert(`Playlist ${create_playlist_results.affectedRows} Created`);
-            CreateButtonID.appendChild(CreatePlaylistTextBox);
-            CreateButtonID.appendChild(createPlaylist_button);
+            alert(`Playlist ${npname.value} Created`);
+            window.location.reload();
         });
     }
 });
@@ -177,7 +176,8 @@ chooseplaylist.addEventListener('change', () => {
             deleteSongButton.addEventListener('click', () => {
                 delete_song_playlist({UserID: user_id, Title: chooseplaylist.value, SongID: unique_id}).then(delete_song_playlist_results => {
                     // song_info: {id, title, rating}
-                    alert(`Song ${song_playlist_info.title} Deleted from Playlist ${chooseplaylist.value} Please Reload the Page to See the Changes`);
+                    alert(`Song ${song_playlist_info.title} Deleted from Playlist ${chooseplaylist.value}`);
+                    window.location.reload();
                 });
             });
         }
@@ -218,7 +218,8 @@ chooseplaylist.addEventListener('change', () => {
             insertSongButton.addEventListener('click', () => {
                 insert_song_playlist({SongID: unique_id, Title: chooseplaylist.value}).then(insert_song_playlist_results => {
                     // song_info: {id, title, rating}
-                    alert(`Song ${song_playlist_info.title} Inserted to Playlist ${chooseplaylist.value} Please Reload to See the Changes`);
+                    alert(`Song ${song_playlist_info.title} Inserted to Playlist ${chooseplaylist.value}`);
+                    window.location.reload();
                 });
             });
         }
@@ -233,7 +234,8 @@ chooseplaylist.addEventListener('change', () => {
 
     deleteplaylistbutton.addEventListener('click', () => {
         delete_playlist({Title: chooseplaylist.value, UserID: user_id}).then(get_non_playlist_songs_results => {
-            alert(`Playlist ${chooseplaylist.value} was Deleted`)
+            alert(`Playlist ${chooseplaylist.value} was Deleted`);
+            window.location.reload();
         });
     });
 

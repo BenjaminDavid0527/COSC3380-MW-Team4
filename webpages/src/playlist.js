@@ -46,69 +46,69 @@ get_all_playlist({ArtistName: "A"})
         li.onclick = 
         li.addEventListener('click', () => {
         get_playlist_ptitleinformation({PlaylistName: li.innerHTML})
-                                .then( (get_playlist_ptitleinformation_response) => {
-                                            //Create a HTML Table element.
-                                var table = document.createElement("TABLE");
-                                table.border = "1";
+            .then( (get_playlist_ptitleinformation_response) => {
+            //Create a HTML Table element.
+            var table = document.createElement("TABLE");
+            table.border = "1";
 
-                                var customers = new Array();
-                                customers.push(["Playlist Title", "Date Created", "Number of Songs"]);
+            var customers = new Array();
+            customers.push(["Playlist Title", "Date Created", "Number of Songs"]);
 
-                                //Add the header row.
-                                var row = table.insertRow(-1);
-                                for (var i = 0; i < 3; i++) {
-                                    var headerCell = document.createElement("TH");
-                                    headerCell.innerHTML = customers[0][i];
-                                    row.appendChild(headerCell);
-                                }
+            //Add the header row.
+            var row = table.insertRow(-1);
+            for (var i = 0; i < 3; i++) {
+                var headerCell = document.createElement("TH");
+                headerCell.innerHTML = customers[0][i];
+                row.appendChild(headerCell);
+            }
 
-                                //Add the data rows.
-                                for (const playlist_info of get_playlist_ptitleinformation_response.Ptitleinformation) {
-                                    row = table.insertRow(-1);
-                                    var cell = row.insertCell(-1);
-                                    cell.innerHTML = playlist_info.title;
-                                    cell = row.insertCell(-1);
-                                    cell.innerHTML = playlist_info.date_created;
-                                    cell = row.insertCell(-1);
-                                    cell.innerHTML = playlist_info.song_count;
-                                }
+            //Add the data rows.
+            for (const playlist_info of get_playlist_ptitleinformation_response.Ptitleinformation) {
+                row = table.insertRow(-1);
+                var cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.title;
+                cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.date_created;
+                cell = row.insertCell(-1);
+                cell.innerHTML = playlist_info.song_count;
+            }
 
-                                playlist_list.innerHTML = "";
-                                playlist_list.appendChild(table);
-                                });
+            playlist_list.innerHTML = "";
+            playlist_list.appendChild(table);
+            });
 
 
         get_playlists_songs({Title: li.innerHTML}).then(get_playlist_songs_results => {
-                                    //Create a HTML Table element.
-                                    var table = document.createElement("TABLE");
-                                    table.border = "1";
-                            
-                                    var customers = new Array();
-                                    customers.push(["Song Title", "Rating"]);
-                            
-                                    //Add the header row.
-                                    var row = table.insertRow(-1);
-                                    for (var i = 0; i < 2; i++) {
-                                        var headerCell = document.createElement("TH");
-                                        headerCell.innerHTML = customers[0][i];
-                                        row.appendChild(headerCell);
-                                    }
-                            
-                                    //Add the data rows.
-                                    for (const song_playlist_info of get_playlist_songs_results.SongInformation) {
-                                        row = table.insertRow(-1);
-                                        var cell = row.insertCell(-1);
-                                        cell.innerHTML = song_playlist_info.title;
-                                        cell = row.insertCell(-1);
-                                        cell.innerHTML = song_playlist_info.rating;
-                                    }
-                            
-                                    song_playlist_list.innerHTML = "";
-                                    song_playlist_list.appendChild(table);
-                            
-                                });
+            //Create a HTML Table element.
+            var table = document.createElement("TABLE");
+            table.border = "1";
+    
+            var customers = new Array();
+            customers.push(["Song Title", "Rating"]);
+    
+            //Add the header row.
+            var row = table.insertRow(-1);
+            for (var i = 0; i < 2; i++) {
+                var headerCell = document.createElement("TH");
+                headerCell.innerHTML = customers[0][i];
+                row.appendChild(headerCell);
+            }
+    
+            //Add the data rows.
+            for (const song_playlist_info of get_playlist_songs_results.SongInformation) {
+                row = table.insertRow(-1);
+                var cell = row.insertCell(-1);
+                cell.innerHTML = song_playlist_info.title;
+                cell = row.insertCell(-1);
+                cell.innerHTML = song_playlist_info.rating;
+            }
+    
+            song_playlist_list.innerHTML = "";
+            song_playlist_list.appendChild(table);
+    
+        });
 
-                            });
+    });
         searchplaylist.appendChild(li);
     }
     const myInput = document.getElementById('myInput');
