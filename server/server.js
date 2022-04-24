@@ -958,7 +958,7 @@ else if (request.url.substr(0,25) === '/requests/get_album_songs') {
             buffers.push(chunk);
         }
         const output_song_info = JSON.parse(buffers.toString());
-        const output_song_query = `SELECT title, rating FROM SONG WHERE (album_id IN (SELECT id FROM ALBUM WHERE(title = "${output_song_info.Title}")))`
+        const output_song_query = `SELECT title, rating, id FROM SONG WHERE (album_id IN (SELECT id FROM ALBUM WHERE(title = "${output_song_info.Title}")))`
 
         connection.query(output_song_query, (error, output_song_results) => {
             if (error) {
@@ -979,8 +979,8 @@ else if (request.url.substr(0,25) === '/requests/get_album_songs') {
 }
 }
 
-else if (request.url.substr(0,25) === '/requests/createalbum') {
-    if (request.url === '/requests/createalbum') {
+else if (request.url.substr(0,22) === '/requests/create_album') {
+    if (request.url === '/requests/create_album') {
         const buffers = [];
         for await (const chunk of request) {
             buffers.push(chunk);
@@ -1005,14 +1005,14 @@ else if (request.url.substr(0,25) === '/requests/createalbum') {
         );
     }
 }
-else if (request.url.substr(0,25) === '/requests/delete_album') {
+else if (request.url.substr(0,22) === '/requests/delete_album') {
     if (request.url === '/requests/delete_album') {
         const buffers = [];
         for await (const chunk of request) {
             buffers.push(chunk);
         }
         const delete_album_info = JSON.parse(buffers.toString());
-        const delete_album_query = `DELETE FROM ALBUM WHERE (id = ${delete_album_info.Id} AND user_id = ${delete_album_info.UserID})`
+        const delete_album_query = `DELETE FROM ALBUM WHERE (title = "${delete_album_info.Title}" AND user_id = ${delete_album_info.UserID})`
 
         connection.query(delete_album_query, (error, delete_album_results) => {
             if (error) {
@@ -1026,6 +1026,88 @@ else if (request.url.substr(0,25) === '/requests/delete_album') {
 
             response.writeHead(200);
             response.write(JSON.stringify(createResponse));
+            response.end();          
+            }
+        );
+    }
+}
+else if (request.url.substr(0,27) === '/requests/insert_song_album') {
+    if (request.url === '/requests/insert_song_album') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const insert_song_album_info = JSON.parse(buffers.toString());
+        const insert_song_album_query = `UPDATE SONG SET album_id = (SELECT id FROM ALBUM WHERE(title = "${insert_song_album_info.Title}")) WHERE id = ${insert_song_album_info.SongID}`
+
+        connection.query(insert_song_album_query, (error, insert_song_album_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            
+            const createResponse = {Changed: insert_song_album_results.affectedRows};
+
+            response.writeHead(200);
+            response.write(JSON.stringify(createResponse));
+            response.end();          
+            }
+        );
+    }
+}
+else if (request.url.substr(0,27) === '/requests/delete_song_album') {
+    if (request.url === '/requests/delete_song_album') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const delete_song_album_info = JSON.parse(buffers.toString());
+        const delete_song_album_query = `UPDATE SONG SET album_id IS NULL WHERE (id = ${delete_song_album_info.SongID})`
+
+        connection.query(delete_song_album_query, (error, delete_song_album_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            
+            const createResponse = {Changed: delete_song_album_results.affectedRows};
+
+            response.writeHead(200);
+            response.write(JSON.stringify(createResponse));
+            response.end();          
+            }
+        );
+    }
+}
+
+else if (request.url.substr(0,29) === '/requests/get_non_album_songs') {
+    if (request.url === '/requests/get_non_album_songs') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const get_non_album_songs_info = JSON.parse(buffers.toString());
+        const get_non_album_songs_query = `SELECT title, rating, id FROM SONG WHERE (album_id IS NULL AND user_id = ${get_non_album_songs_info.UserID})`
+
+        connection.query(get_non_album_songs_query, (error, get_non_album_songs_results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            
+            const rowsSongs = {Info: []}
+            for (const rowSongs of get_non_album_songs_results) {
+                rowsSongs.Info.push(rowSongs);
+            }
+
+            response.writeHead(200);
+            response.write(JSON.stringify(rowsSongs));
             response.end();          
             }
         );
@@ -1202,6 +1284,10 @@ async function server_handler(request, response) {
     }
     else if (request.url === '/albums' || request.url === '/albums/') {
         file_path = pages_path + '/html/albums.html'
+        content_type = 'text/html';
+    }
+    else if (request.url === '/edit_albums' || request.url === '/edit_albums/') {
+        file_path = pages_path + '/html/edit_albums.html'
         content_type = 'text/html';
     }
     else if (request.url.substr(0,9) === '/requests') {
