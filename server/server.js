@@ -645,23 +645,36 @@ else if (request.url.substr(0,30) === '/requests/insert_song_playlist') {
             buffers.push(chunk);
         }
         const insert_song_playlist_info = JSON.parse(buffers.toString());
-        const insert_song_playlist_query = `INSERT INTO SONG_PLAYLIST (playlist_id, song_id) VALUES ( ${insert_song_playlist_info.Id}, ${insert_song_playlist_info.SongID} )`
-
-        connection.query(insert_song_playlist_query, (error, create_playlist_results) => {
+        //const insert_song_playlist_query = `INSERT INTO SONG_PLAYLIST (song_id, playlist_id) VALUE ( ${insert_song_playlist_info.SongID}, (SELECT id FROM PLAYLIST WHERE ( title = "${insert_song_playlist_info.Title}")))`
+        
+        connection.query(`SELECT id FROM PLAYLIST WHERE ( title = "${insert_song_playlist_info.Title}")`, (error, select_results) => {
             if (error) {
                 console.log(error);
                 response.writeHead(500);
                 response.end();
                 throw error;
             }
-            
-            const createResponse = {Changed: create_playlist_results.affectedRows};
+            const res = JSON.stringify(select_results);
+            const insert_song_playlist_query = `INSERT INTO SONG_PLAYLIST (song_id, playlist_id) VALUE ( ${insert_song_playlist_info.SongID}, ${select_results[0].id})`
 
-            response.writeHead(200);
-            response.write(JSON.stringify(createResponse));
-            response.end();          
-            }
-        );
+            connection.query(insert_song_playlist_query, (error, create_playlist_results) => {
+                if (error) {
+                    console.log(error);
+                    response.writeHead(500);
+                    response.end();
+                    throw error;
+                }
+                
+                const createResponse = {Changed: create_playlist_results.affectedRows};
+    
+                response.writeHead(200);
+                response.write(JSON.stringify(createResponse));
+                response.end();          
+                }
+            );
+        });
+
+
     }
 }
 else if (request.url.substr(0,30) === '/requests/delete_song_playlist') {
