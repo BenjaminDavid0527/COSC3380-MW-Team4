@@ -1,4 +1,4 @@
-const body = document.getElementById('albumbody');
+const body = document.getElementById("albumbody");
 
 async function get_albums(data) {
     const response = await fetch('/requests/albums', {
@@ -23,13 +23,18 @@ else {
     user_id = parseInt(dc.substr(start_idx+7, end_idx));
 }
 
-get_albums({UserID: user_id}).then(results => {
-    const album_list = document.getElementById('album_list');
-    
-    for (const album_info of results.Info) {
+const album_list = document.getElementById("album_list");
+
+get_albums({UserID: user_id}).then(getalbum_results => {
+    for (const album_info of getalbum_results.Info) {
         const li = document.createElement('li');
+        const unique_id = album_info.id.toString();
+
+        li.setAttribute('id', unique_id);
+
         const body = `Title: ${album_info.title}\t`
         li.innerHTML = body;
+
         album_list.appendChild(li);
     }
 }); 

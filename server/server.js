@@ -1264,7 +1264,7 @@ async function server_handler(request, response) {
         file_path = pages_path + '/html/songs.html'
         content_type = 'text/html';
     }
-    else if (request.url === '/uploads' || request.url === '/uploads/') {
+    else if (request.url === '/uploads' || request.url === '/uploads/' || request.url === '/uploads?') {
         file_path = pages_path + '/html/uploads.html'
         content_type = 'text/html';
     }

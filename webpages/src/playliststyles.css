@@ -123,14 +123,16 @@ input:not(:placeholder-shown):invalid {
     outline: none;
 }
 
-#searchplaylist {
+#searchplaylist,
+#searchalbum {
   /* Remove default list styling */
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-#searchplaylist li {
+#searchplaylist li,
+#searchalbum li {
   border: 1px solid #ddd; /* Add a border to all links */
   margin-top: -1px; /* Prevent double borders */
   background-color: #f6f6f6; /* Grey background color */
@@ -142,6 +144,10 @@ input:not(:placeholder-shown):invalid {
 }
 
 #searchplaylist li:hover:not(.header) {
+  background-color: rgba(236, 199, 211, 0.9); /* Add a hover effect to all links, except for headers */
+}
+
+#searchalbum li:hover:not(.header) {
   background-color: rgba(236, 199, 211, 0.9); /* Add a hover effect to all links, except for headers */
 }
 
