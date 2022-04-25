@@ -6,7 +6,7 @@ Jose Sanchez Gonzalez and Sevban Sonmez and Benjamin Price and Laney Tran
 
 ## Prerequisites
 * Install Node
-* Install mysql with NPM (code currently assumes it is installed into the server_page_interaction_prototype folder)
+* Install mysql with NPM (code currently assumes it is installed into the /server/ folder)
 
 ## Running the server
 To run our prototype server, open a command prompt in the root folder of the project and enter the following:
