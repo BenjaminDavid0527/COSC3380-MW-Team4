@@ -93,10 +93,15 @@ const handle_login = (event) => {
         // the login request is accepted. If it is, then the object also has the key UserID, corresponding 
         // to the ID of the user in the database internally. This is insanely insecure but will work for our
         // demo.
-        if (data.Accepted) {
+        if (data.Accepted && !data.Admin) {
             setCookie("UserID", data.UserID, 1);
             // Put logic for loading user profile page here
             window.location.href = "/user";
+        }
+        else if (data.Accepted && data.Admin) {
+            setCookie("UserID", data.UserID, 1);
+            // Put logic for loading user profile page here
+            window.location.href = "/admin";
         }
         else {
             alert("Sorry that username or password was incorrect!")    

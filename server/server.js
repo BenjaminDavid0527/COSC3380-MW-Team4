@@ -44,6 +44,105 @@ async function handle_song_rating_update(song_id, response) {
     });
 }
 
+async function handle_admin_requests(request, response) {
+    if (request.url === '/requests/admin/songs') {
+        // const buffers = [];
+        // for await (const chunk of request) {
+        //     buffers.push(chunk);
+        // }
+        const query = `SELECT id, title, rating from SONG`;
+        connection.query(query, (error, results) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            else {
+                const rows = {Songs: []};
+                for (const row of results) {
+                    rows.Songs.push(row)
+                }
+                response.writeHead(200);
+                response.write(JSON.stringify(rows));
+                response.end();
+            }
+        });
+    }
+    else if (request.url === '/requests/admin/rename_song') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const song_info = JSON.parse(buffers.toString());
+        const query = `UPDATE SONG SET title = "${song_info.NewName}" WHERE (id = ${song_info.ID});`;
+        connection.query(query, (error, result) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            else {
+                response.writeHead(200);
+                response.write(JSON.stringify({'Success': true}));
+                response.end();
+            }
+        });
+    }
+    else if (request.url === '/requests/admin/change_rating') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const song_info = JSON.parse(buffers.toString());
+        const query = `UPDATE SONG SET rating = ${song_info.NewRating} WHERE (id = ${song_info.ID})`;
+        connection.query(query, (error, result) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            else {
+                response.writeHead(200);
+                response.write(JSON.stringify({'Success': true}));
+                response.end();
+            }
+        });
+    }
+    else if (request.url === '/requests/admin/delete_song') {
+        const buffers = [];
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        const song_info = JSON.parse(buffers.toString());
+        const query = `DELETE FROM SONG WHERE id = ${song_info.ID}`;
+        connection.query(query, (error, result) => {
+            if (error) {
+                console.log(error);
+                response.writeHead(500);
+                response.end();
+                throw error;
+            }
+            else {
+                response.writeHead(200);
+                response.write(JSON.stringify({'Success': true}));
+                response.end();
+            }
+        });
+    }
+    else {
+        const buffers = [];    
+        for await (const chunk of request) {
+            buffers.push(chunk);
+        }
+        console.log(JSON.parse(buffers.toString()));
+        response.write(JSON.stringify({'Accepted': false}))
+        response.end();
+    }
+}
+
 async function handle_posts_requests(request, response) {
     if (request.url === '/requests/login') {
         const buffers = [];
@@ -66,7 +165,12 @@ async function handle_posts_requests(request, response) {
             }
             else {
                 response.writeHead(200);
-                response.write(JSON.stringify({'Accepted': true, 'UserID': results['0'].id}));
+                if (results['0'].id == 1) {
+                    response.write(JSON.stringify({'Accepted': true, 'UserID': results['0'].id, 'Admin': true}));
+                }
+                else {
+                    response.write(JSON.stringify({'Accepted': true, 'UserID': results['0'].id, 'Admin': false}));
+                }
                 response.end();
             }
         });
@@ -1260,6 +1364,10 @@ async function server_handler(request, response) {
         file_path = pages_path + '/html/register.html';
         content_type = 'text/html';
     }
+    else if (request.url === '/admin') {
+        file_path = pages_path + '/html/admin.html'
+        content_type = 'text/html';
+    }
     else if (request.url === '/songs') {
         file_path = pages_path + '/html/songs.html'
         content_type = 'text/html';
@@ -1302,6 +1410,10 @@ async function server_handler(request, response) {
     else if (request.url === '/edit_albums' || request.url === '/edit_albums/') {
         file_path = pages_path + '/html/edit_albums.html'
         content_type = 'text/html';
+    }
+    else if (request.url.substr(0,15) === '/requests/admin') {
+        handle_admin_requests(request, response);
+        return;
     }
     else if (request.url.substr(0,9) === '/requests') {
         handle_posts_requests(request, response);
