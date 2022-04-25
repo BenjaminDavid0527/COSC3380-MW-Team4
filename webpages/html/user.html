@@ -15,7 +15,7 @@
       <div class="topnav" id="topNavBar">
         <a href="user" class="active">Home</a>
         <a href="songs">Songs</a>
-        <a href="uploads">Upload</a>
+        <!-- <a href="uploads">Upload</a> -->
         <a href="albums">Albums</a>
         <a href="playlist"> Playlists</a>
         <a href="reports">Reports</a>
@@ -77,14 +77,12 @@
                                 <div class="uploadsong">
                                   <label>Upload New Song: </label> 
                                   <form>
-                                      <input type="text" id="songTitle" class="form_input" placeholder="Song Title" minlength="3" maxlength="20" pattern="!@#$%&*[^()/><\][\\\x22,;|]+{3,20}" oninvalid="alert('Please input a song title! It must be between 3-20 characters and not contain special characters.');" required>
+                                      <input type="text" id="songTitle" class="form_input" placeholder="Song Title" minlength="3" maxlength="20" oninvalid="alert('Please input a song title! It must be between 3-20 characters.');" required>
 
-                                      <!--<input type="file" id="songUpload" accept="audio/*" required>-->
                                       <button id="uploadbtn" type="submit" > Upload </button>
                                       <button id="deletebtn" type="submit" > Delete </button>
 
                                   </form>
-                                  <!--<script src="webpages/src/uploadsong.js"></script>-->
                                 </div>
                                 <body>
                                   <ol id="song_list">
@@ -95,50 +93,14 @@
                               </div>
                               <div class="tabs-panel" data-index="1">
                                 <!-- content here -->
-                                <label>Upload New Album: </label> 
-                                  <form>
-                                      <input type="text" id="albumTitle" class="form_input" placeholder="Album Title" minlength="3" maxlength="20" pattern="!@#$%&*[^()/><\][\\\x22,;|]+{3,20}" oninvalid="alert('Please input an album title! It must be between 3-20 characters and not contain special characters.');" required>
-                                      <input type="file" id="albumUpload" accept="audio/*" multiple required>
-                                      <button id="uploadbtn" type="submit" > Upload </button>
-                                  </form>
                                   
-                                <body>
-                                <li id="album_list">
+                                <body id = "albumbody">
+                                <p id="album_list">
 
-                                </li>
-                                <script src="/webpages/src/albums.js"> </script>
+                                </p>
+                                <script src="/webpages/src/user_albums.js"> </script>
                                 </body>
                               </div>
-
-                              <!-- playlist tab below -->
-                              <!--
-                              <div class="tabs-panel" data-index="2">
-                                <!-- content here 
-                                <div id="playlistcreation">
-                                  <!-- <div class="wrapper">
-                                      <div class="title-text">
-                                          <div class="title songs">Create Playlist</div>
-                                      </div>
-                                  </div>
-                                  <form>
-                                      <label for="playlistname">New playlist name:</label><br>
-                                  </form>
-                                  <ol id="createButton">
-                          
-                                  </ol>
-                                  <ol id="song_list">
-                          
-                                  </ol>
-                                  <ol id="playlist_list">
-                          
-                                  </ol>
-                                  <ol id="playlist_songs_list">
-                          
-                                  </ol>
-                                  <script src="webpages/src/create_playlist.js"> </script>
-                                </div>
-                              </div>
-                            -->
 
                               <div class="tabs-panel" data-index="2">
                                <div class="profile tabShow">
@@ -162,37 +124,7 @@
             </div>
         </div>
         
-        
-        <div style="text-align: center;">
-        
-        <div id="cs_audioplayer">
-        
-             <span style="position: relative;left: 0;float: left;font-size: 0.87em;"><span id="cs_audio_current_time">0:0</span></span>
-        
-             <span id="cs_play_pause_btn" style="position: relative;">
-                 <i class="far fa-play-circle" id="cs_audio_play"></i>
-                 <i class="far fa-pause-circle" id="cs_audio_pause"></i>
-             </span>
-        
-             <span id="cs_audio_sound" style="position: relative;right: 5px;float: right;margin-left: 15px;top: -2px;">
-                 <i style="vertical-align: middle;font-size: 1.14em;" class="fas fa-volume-down"></i>
-                 <div class="cs_volBar" style="height: 6px; width: 65px;background-color: #ccc;display: inline-block;cursor: pointer;">
-                   <div class="cs_volume" style="height: 6px;width: 28px;background-color: red;position: absolute;"></div>
-                 </div>
-        
-             </span>
-             <span id="cs_audio_duration" style="position: relative;right: 0;float: right;padding-left: 10px;font-size: 0.87em;"></span>
-        
-             <div class="cs_audio_bar">
-                 <div class="cs_audio_bar_now"></div>
-                 <div class="cs_audio_bar_loaded"></div>
-             </div>
-        
-        </div>
-        </div>
-        
-        
-        <script src="webpages/src/cspd-player.js"></script>
+      
         <script src="webpages/src/user.js"></script>
         <script src="webpages/src/user_settings.js"></script>
 
