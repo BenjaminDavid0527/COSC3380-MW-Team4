@@ -3,6 +3,20 @@ const d_playlists_list = document.getElementById('d_playlists')
 const d_albums_list = document.getElementById('d_albums')
 const d_users_list = document.getElementById('d_users')
 
+dc = document.cookie;
+const start_idx = dc.indexOf('UserID')
+const end_idx = dc.substr(start_idx).indexOf(';');
+let user_id;
+if (end_idx === -1) {
+    user_id = parseInt(dc.substr(start_idx+7));
+}
+else {
+    user_id = parseInt(dc.substr(start_idx+7, end_idx));
+}
+
+if (user_id !== 1) {
+    window.location.href = "/";
+}
 
 function deleteCookie(name) {
     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";

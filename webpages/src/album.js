@@ -106,11 +106,11 @@ get_all_albums({ArtistName: "A"})
                                 table.border = "0.5";
 
                                 var customers = new Array();
-                                customers.push(["Album Title", "Number of Songs"]);
+                                customers.push(["Album Title"]);
 
                                 //Add the header row.
                                 var row = table.insertRow(-1);
-                                for (var i = 0; i < 2; i++) {
+                                for (var i = 0; i < 1; i++) {
                                     var headerCell = document.createElement("TH");
                                     headerCell.innerHTML = customers[0][i];
                                     row.appendChild(headerCell);
@@ -120,8 +120,8 @@ get_all_albums({ArtistName: "A"})
                                     row = table.insertRow(-1);
                                     var cell = row.insertCell(-1);
                                     cell.innerHTML = album_info.title;
-                                    cell = row.insertCell(-1);
-                                    cell.innerHTML = album_info.song_count;
+                                    // cell = row.insertCell(-1);
+                                    // cell.innerHTML = album_info.song_count;
                                 }
 
                                 album_list.innerHTML = "";

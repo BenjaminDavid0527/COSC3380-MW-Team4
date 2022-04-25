@@ -124,10 +124,10 @@ anameSubmit.addEventListener('click', () => {
         //     customers.push(["Size of File"]);
         //     countCustomers++;
         // }
-        if(ratingcheckbox.checked){
-            customers.push(["Number of Songs"]);
-            countCustomers++;
-        }
+        // if(ratingcheckbox.checked){
+        //     customers.push(["Number of Songs"]);
+        //     countCustomers++;
+        // }
 
         //Add the header row.
         var row = table.insertRow(-1);
@@ -160,10 +160,10 @@ anameSubmit.addEventListener('click', () => {
             //     var cell = row.insertCell(-1);
             //     cell.innerHTML = song_ainfo.size;
             // }
-            if(ratingcheckbox.checked){
-                var cell = row.insertCell(-1);
-                cell.innerHTML = song_ainfo.song_count;
-            }
+            // if(ratingcheckbox.checked){
+            //     var cell = row.insertCell(-1);
+            //     cell.innerHTML = song_ainfo.song_count;
+            // }
         }
  
         playlist_list.innerHTML = "";
@@ -206,10 +206,10 @@ ptitleSubmit.addEventListener('click', () => {
         //     customers.push(["Size of File"]);
         //     countCustomers++;
         // }
-        if(ratingcheckbox.checked){
-            customers.push(["Number of Songs"]);
-            countCustomers++;
-        }
+        // if(ratingcheckbox.checked){
+        //     customers.push(["Number of Songs"]);
+        //     countCustomers++;
+        // }
 
         //Add the header row.
         var row = table.insertRow(-1);
@@ -242,10 +242,10 @@ ptitleSubmit.addEventListener('click', () => {
             //     var cell = row.insertCell(-1);
             //     cell.innerHTML = Album_titleinfo.size;
             // }
-            if(ratingcheckbox.checked){
-                var cell = row.insertCell(-1);
-                cell.innerHTML = Album_titleinfo.song_count;
-            }
+            // if(ratingcheckbox.checked){
+            //     var cell = row.insertCell(-1);
+            //     cell.innerHTML = Album_titleinfo.song_count;
+            // }
         }
  
         playlist_list.innerHTML = "";
@@ -254,236 +254,236 @@ ptitleSubmit.addEventListener('click', () => {
     }
 });
 
-pinfoSubmit.addEventListener('click', () => {
-    if(nsongs.value == "" || nsongs.length == 0 || nsongs == null ){
-        alert("Number of Songs must contain a value");
-    }
-    else if(quantity.value == "More than"){
-        get_album_pinformationMT({NSongs: nsongs.value})
-        .then( (get_album_pinformationMT_response) => {
-        //Create a HTML Table element.
-        var table = document.createElement("TABLE");
-        table.border = "1";
+// pinfoSubmit.addEventListener('click', () => {
+//     if(nsongs.value == "" || nsongs.length == 0 || nsongs == null ){
+//         alert("Number of Songs must contain a value");
+//     }
+//     else if(quantity.value == "More than"){
+//         get_album_pinformationMT({NSongs: nsongs.value})
+//         .then( (get_album_pinformationMT_response) => {
+//         //Create a HTML Table element.
+//         var table = document.createElement("TABLE");
+//         table.border = "1";
 
-        var customers = new Array();
-        var countCustomers = 0;
+//         var customers = new Array();
+//         var countCustomers = 0;
 
-        if(titlecheckbox.checked){
-            customers.push(["Album Title"]);
-            countCustomers++;
-        }
-        // if(artistcheckbox.checked){
-        //     customers.push(["Artist Name"]);
-        //     countCustomers++;
-        // }
-        // if(lengthcheckbox.checked){
-        //     customers.push(["Length of Song"]);
-        //     countCustomers++;
-        // }
-        if(uploaddatecheckbox.checked){
-            customers.push(["Creation Date"]);
-            countCustomers++;
-        }
-        // if(sizecheckbox.checked){
-        //     customers.push(["Size of File"]);
-        //     countCustomers++;
-        // }
-        if(ratingcheckbox.checked){
-            customers.push(["Number of Songs"]);
-            countCustomers++;
-        }
+//         if(titlecheckbox.checked){
+//             customers.push(["Album Title"]);
+//             countCustomers++;
+//         }
+//         // if(artistcheckbox.checked){
+//         //     customers.push(["Artist Name"]);
+//         //     countCustomers++;
+//         // }
+//         // if(lengthcheckbox.checked){
+//         //     customers.push(["Length of Song"]);
+//         //     countCustomers++;
+//         // }
+//         if(uploaddatecheckbox.checked){
+//             customers.push(["Creation Date"]);
+//             countCustomers++;
+//         }
+//         // if(sizecheckbox.checked){
+//         //     customers.push(["Size of File"]);
+//         //     countCustomers++;
+//         // }
+//         // if(ratingcheckbox.checked){
+//         //     customers.push(["Number of Songs"]);
+//         //     countCustomers++;
+//         // }
 
-        //Add the header row.
-        var row = table.insertRow(-1);
-        for (var i = 0; i < countCustomers; i++) {
-            var headerCell = document.createElement("TH");
-            headerCell.innerHTML = customers[i];
-            row.appendChild(headerCell);
-        }
+//         //Add the header row.
+//         var row = table.insertRow(-1);
+//         for (var i = 0; i < countCustomers; i++) {
+//             var headerCell = document.createElement("TH");
+//             headerCell.innerHTML = customers[i];
+//             row.appendChild(headerCell);
+//         }
  
-        //Add the data rows.
-        for (const Album_titleinfo of get_album_pinformationMT_response.AlbumAinformation) {
-            row = table.insertRow(-1);            
-            if(titlecheckbox.checked){
-                var cell = row.insertCell(-1);
-                cell.innerHTML = Album_titleinfo.title;
-            }
-            // if(artistcheckbox.checked){
-            //     var cell = row.insertCell(-1);
-            //     cell.innerHTML = aname.value;
-            // }
-            // if(lengthcheckbox.checked){
-            //     var cell = row.insertCell(-1);
-            //     cell.innerHTML = Album_titleinfo.length_seconds;
-            // }
-            if(uploaddatecheckbox.checked){
-                var cell = row.insertCell(-1);
-                cell.innerHTML = Album_titleinfo.date_created;
-            }
-            // if(sizecheckbox.checked){
-            //     var cell = row.insertCell(-1);
-            //     cell.innerHTML = Album_titleinfo.size;
-            // }
-            if(ratingcheckbox.checked){
-                var cell = row.insertCell(-1);
-                cell.innerHTML = Album_titleinfo.song_count;
-            }
-        }
+//         //Add the data rows.
+//         for (const Album_titleinfo of get_album_pinformationMT_response.AlbumAinformation) {
+//             row = table.insertRow(-1);            
+//             if(titlecheckbox.checked){
+//                 var cell = row.insertCell(-1);
+//                 cell.innerHTML = Album_titleinfo.title;
+//             }
+//             // if(artistcheckbox.checked){
+//             //     var cell = row.insertCell(-1);
+//             //     cell.innerHTML = aname.value;
+//             // }
+//             // if(lengthcheckbox.checked){
+//             //     var cell = row.insertCell(-1);
+//             //     cell.innerHTML = Album_titleinfo.length_seconds;
+//             // }
+//             if(uploaddatecheckbox.checked){
+//                 var cell = row.insertCell(-1);
+//                 cell.innerHTML = Album_titleinfo.date_created;
+//             }
+//             // if(sizecheckbox.checked){
+//             //     var cell = row.insertCell(-1);
+//             //     cell.innerHTML = Album_titleinfo.size;
+//             // }
+//             // if(ratingcheckbox.checked){
+//             //     var cell = row.insertCell(-1);
+//             //     cell.innerHTML = Album_titleinfo.song_count;
+//             // }
+//         }
  
-        playlist_list.innerHTML = "";
-        playlist_list.appendChild(table);
-        });
-    }
-    else if(quantity.value == "Less than"){
-        get_album_pinformationLT({NSongs: nsongs.value})
-        .then( (get_song_pinformationLT_response) => {
-                    //Create a HTML Table element.
-        var table = document.createElement("TABLE");
-        table.border = "1";
+//         playlist_list.innerHTML = "";
+//         playlist_list.appendChild(table);
+//         });
+//     }
+//     else if(quantity.value == "Less than"){
+//         get_album_pinformationLT({NSongs: nsongs.value})
+//         .then( (get_song_pinformationLT_response) => {
+//                     //Create a HTML Table element.
+//         var table = document.createElement("TABLE");
+//         table.border = "1";
 
-        var customers = new Array();
-        var countCustomers = 0;
+//         var customers = new Array();
+//         var countCustomers = 0;
 
-        if(titlecheckbox.checked){
-            customers.push(["Album Title"]);
-            countCustomers++;
-        }
-        // if(artistcheckbox.checked){
-        //     customers.push(["Artist Name"]);
-        //     countCustomers++;
-        // }
-        // if(lengthcheckbox.checked){
-        //     customers.push(["Length of Song"]);
-        //     countCustomers++;
-        // }
-        if(uploaddatecheckbox.checked){
-            customers.push(["Creation Date"]);
-            countCustomers++;
-        }
-        // if(sizecheckbox.checked){
-        //     customers.push(["Size of File"]);
-        //     countCustomers++;
-        // }
-        if(ratingcheckbox.checked){
-            customers.push(["Number of Songs"]);
-            countCustomers++;
-        }
+//         if(titlecheckbox.checked){
+//             customers.push(["Album Title"]);
+//             countCustomers++;
+//         }
+//         // if(artistcheckbox.checked){
+//         //     customers.push(["Artist Name"]);
+//         //     countCustomers++;
+//         // }
+//         // if(lengthcheckbox.checked){
+//         //     customers.push(["Length of Song"]);
+//         //     countCustomers++;
+//         // }
+//         if(uploaddatecheckbox.checked){
+//             customers.push(["Creation Date"]);
+//             countCustomers++;
+//         }
+//         // if(sizecheckbox.checked){
+//         //     customers.push(["Size of File"]);
+//         //     countCustomers++;
+//         // }
+//         // if(ratingcheckbox.checked){
+//         //     customers.push(["Number of Songs"]);
+//         //     countCustomers++;
+//         // }
 
-        //Add the header row.
-        var row = table.insertRow(-1);
-        for (var i = 0; i < countCustomers; i++) {
-            var headerCell = document.createElement("TH");
-            headerCell.innerHTML = customers[i];
-            row.appendChild(headerCell);
-        }
+//         //Add the header row.
+//         var row = table.insertRow(-1);
+//         for (var i = 0; i < countCustomers; i++) {
+//             var headerCell = document.createElement("TH");
+//             headerCell.innerHTML = customers[i];
+//             row.appendChild(headerCell);
+//         }
  
-        //Add the data rows.
-        for (const Album_titleinfo of get_song_pinformationLT_response.AlbumAinformation) {
-            row = table.insertRow(-1);            
-            if(titlecheckbox.checked){
-                var cell = row.insertCell(-1);
-                cell.innerHTML = Album_titleinfo.title;
-            }
-            // if(artistcheckbox.checked){
-            //     var cell = row.insertCell(-1);
-            //     cell.innerHTML = aname.value;
-            // }
-            // if(lengthcheckbox.checked){
-            //     var cell = row.insertCell(-1);
-            //     cell.innerHTML = Album_titleinfo.length_seconds;
-            // }
-            if(uploaddatecheckbox.checked){
-                var cell = row.insertCell(-1);
-                cell.innerHTML = Album_titleinfo.date_created;
-            }
-            // if(sizecheckbox.checked){
-            //     var cell = row.insertCell(-1);
-            //     cell.innerHTML = Album_titleinfo.size;
-            // }
-            if(ratingcheckbox.checked){
-                var cell = row.insertCell(-1);
-                cell.innerHTML = Album_titleinfo.song_count;
-            }
-        }
+//         //Add the data rows.
+//         for (const Album_titleinfo of get_song_pinformationLT_response.AlbumAinformation) {
+//             row = table.insertRow(-1);            
+//             if(titlecheckbox.checked){
+//                 var cell = row.insertCell(-1);
+//                 cell.innerHTML = Album_titleinfo.title;
+//             }
+//             // if(artistcheckbox.checked){
+//             //     var cell = row.insertCell(-1);
+//             //     cell.innerHTML = aname.value;
+//             // }
+//             // if(lengthcheckbox.checked){
+//             //     var cell = row.insertCell(-1);
+//             //     cell.innerHTML = Album_titleinfo.length_seconds;
+//             // }
+//             if(uploaddatecheckbox.checked){
+//                 var cell = row.insertCell(-1);
+//                 cell.innerHTML = Album_titleinfo.date_created;
+//             }
+//             // if(sizecheckbox.checked){
+//             //     var cell = row.insertCell(-1);
+//             //     cell.innerHTML = Album_titleinfo.size;
+//             // }
+//             // if(ratingcheckbox.checked){
+//             //     var cell = row.insertCell(-1);
+//             //     cell.innerHTML = Album_titleinfo.song_count;
+//             // }
+//         }
  
-        playlist_list.innerHTML = "";
-        playlist_list.appendChild(table);
-        });
-    }
-    else if(quantity.value == "Equal to"){
-        get_album_pinformationET({NSongs: nsongs.value })
-        .then( (get_playlist_pinformationET_response) => {
-                    //Create a HTML Table element.
-        var table = document.createElement("TABLE");
-        table.border = "1";
+//         playlist_list.innerHTML = "";
+//         playlist_list.appendChild(table);
+//         });
+//     }
+//     else if(quantity.value == "Equal to"){
+//         get_album_pinformationET({NSongs: nsongs.value })
+//         .then( (get_playlist_pinformationET_response) => {
+//                     //Create a HTML Table element.
+//         var table = document.createElement("TABLE");
+//         table.border = "1";
 
-        var customers = new Array();
-        var countCustomers = 0;
+//         var customers = new Array();
+//         var countCustomers = 0;
 
-        if(titlecheckbox.checked){
-            customers.push(["Album Title"]);
-            countCustomers++;
-        }
-        // if(artistcheckbox.checked){
-        //     customers.push(["Artist Name"]);
-        //     countCustomers++;
-        // }
-        // if(lengthcheckbox.checked){
-        //     customers.push(["Length of Song"]);
-        //     countCustomers++;
-        // }
-        if(uploaddatecheckbox.checked){
-            customers.push(["Creation Date"]);
-            countCustomers++;
-        }
-        // if(sizecheckbox.checked){
-        //     customers.push(["Size of File"]);
-        //     countCustomers++;
-        // }
-        if(ratingcheckbox.checked){
-            customers.push(["Number of Songs"]);
-            countCustomers++;
-        }
+//         if(titlecheckbox.checked){
+//             customers.push(["Album Title"]);
+//             countCustomers++;
+//         }
+//         // if(artistcheckbox.checked){
+//         //     customers.push(["Artist Name"]);
+//         //     countCustomers++;
+//         // }
+//         // if(lengthcheckbox.checked){
+//         //     customers.push(["Length of Song"]);
+//         //     countCustomers++;
+//         // }
+//         if(uploaddatecheckbox.checked){
+//             customers.push(["Creation Date"]);
+//             countCustomers++;
+//         }
+//         // if(sizecheckbox.checked){
+//         //     customers.push(["Size of File"]);
+//         //     countCustomers++;
+//         // }
+//         // if(ratingcheckbox.checked){
+//         //     customers.push(["Number of Songs"]);
+//         //     countCustomers++;
+//         // }
 
-        //Add the header row.
-        var row = table.insertRow(-1);
-        for (var i = 0; i < countCustomers; i++) {
-            var headerCell = document.createElement("TH");
-            headerCell.innerHTML = customers[i];
-            row.appendChild(headerCell);
-        }
+//         //Add the header row.
+//         var row = table.insertRow(-1);
+//         for (var i = 0; i < countCustomers; i++) {
+//             var headerCell = document.createElement("TH");
+//             headerCell.innerHTML = customers[i];
+//             row.appendChild(headerCell);
+//         }
  
-        //Add the data rows.
-        for (const Album_titleinfo of get_playlist_pinformationET_response.AlbumAinformation) {
-            row = table.insertRow(-1);            
-            if(titlecheckbox.checked){
-                var cell = row.insertCell(-1);
-                cell.innerHTML = Album_titleinfo.title;
-            }
-            // if(artistcheckbox.checked){
-            //     var cell = row.insertCell(-1);
-            //     cell.innerHTML = aname.value;
-            // }
-            // if(lengthcheckbox.checked){
-            //     var cell = row.insertCell(-1);
-            //     cell.innerHTML = Album_titleinfo.length_seconds;
-            // }
-            if(uploaddatecheckbox.checked){
-                var cell = row.insertCell(-1);
-                cell.innerHTML = Album_titleinfo.date_created;
-            }
-            // if(sizecheckbox.checked){
-            //     var cell = row.insertCell(-1);
-            //     cell.innerHTML = Album_titleinfo.size;
-            // }
-            if(ratingcheckbox.checked){
-                var cell = row.insertCell(-1);
-                cell.innerHTML = Album_titleinfo.song_count;
-            }
-        }
+//         //Add the data rows.
+//         for (const Album_titleinfo of get_playlist_pinformationET_response.AlbumAinformation) {
+//             row = table.insertRow(-1);            
+//             if(titlecheckbox.checked){
+//                 var cell = row.insertCell(-1);
+//                 cell.innerHTML = Album_titleinfo.title;
+//             }
+//             // if(artistcheckbox.checked){
+//             //     var cell = row.insertCell(-1);
+//             //     cell.innerHTML = aname.value;
+//             // }
+//             // if(lengthcheckbox.checked){
+//             //     var cell = row.insertCell(-1);
+//             //     cell.innerHTML = Album_titleinfo.length_seconds;
+//             // }
+//             if(uploaddatecheckbox.checked){
+//                 var cell = row.insertCell(-1);
+//                 cell.innerHTML = Album_titleinfo.date_created;
+//             }
+//             // if(sizecheckbox.checked){
+//             //     var cell = row.insertCell(-1);
+//             //     cell.innerHTML = Album_titleinfo.size;
+//             // }
+//             // if(ratingcheckbox.checked){
+//             //     var cell = row.insertCell(-1);
+//             //     cell.innerHTML = Album_titleinfo.song_count;
+//             // }
+//         }
  
-        playlist_list.innerHTML = "";
-        playlist_list.appendChild(table);
-        });
-    }
-});
+//         playlist_list.innerHTML = "";
+//         playlist_list.appendChild(table);
+//         });
+//     }
+// });
