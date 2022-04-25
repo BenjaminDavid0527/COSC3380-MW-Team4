@@ -117,8 +117,9 @@ async function handle_admin_requests(request, response) {
             buffers.push(chunk);
         }
         const song_info = JSON.parse(buffers.toString());
-        const query = `DELETE FROM SONG WHERE id = ${song_info.ID}`;
-        connection.query(query, (error, result) => {
+        const first_query = `DELETE FROM RATING WHERE song_id = ${song_info.ID}`;
+        const second_query = `DELETE FROM SONG WHERE id = ${song_info.ID}`;
+        connection.query(first_query, (error, result) => {
             if (error) {
                 console.log(error);
                 response.writeHead(500);
@@ -126,9 +127,17 @@ async function handle_admin_requests(request, response) {
                 throw error;
             }
             else {
-                response.writeHead(200);
-                response.write(JSON.stringify({'Success': true}));
-                response.end();
+                connection.query(second_query, (error, result) => {
+                    if (error) {
+                        console.log(error);
+                        response.writeHead(500);
+                        response.end();
+                        throw error;
+                    }
+                    response.writeHead(200);
+                    response.write(JSON.stringify({'Success': true}));
+                    response.end();
+                });
             }
         });
     }
